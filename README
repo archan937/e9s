@@ -1,0 +1,56 @@
+= e9s
+
+Enrichments (e9s) for Ruby Internationalization (i18n)
+
+== Introduction
+
+E9s was created due to the need of simply implementing i18n within a Rails application. It enriches I18n, Formastic, the String and Symbol classes to make life easier for the developer.
+
+== How to use
+
+1. Install the e9s plugin
+   script/plugin install git://github.com/archan937/e9s.git 
+
+2. Install the formtastic plugin (optional)
+   script/plugin install git://github.com/justinfrench/formtastic.git
+
+3. Place predefined YML files (for the used locales) in /config/locals/ (optional)
+   download from http://github.com/svenfuchs/rails-i18n/tree/master/rails/locale
+
+4. Add translations within local YML files in /config/locals/
+
+5. Start translating within controllers, models and/or views
+
+6. Enjoy! :D
+
+== Documentation
+
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+== Credit
+
+This Rails plugin depends on:
+
+i18n
+http://github.com/svenfuchs/i18n
+
+Formtastic (optional)
+http://github.com/justinfrench/formtastic
+
+== License
+Copyright (c) 2010 Paul Engel, released under the MIT license
+http://holder.nl - http://gettopup.com - paul.engel@holder.nl
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
+documentation files (the "Software"), to deal in the Software without restriction, including without limitation the 
+rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit 
+persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the 
+Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE 
+WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR 
+COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR 
+OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
