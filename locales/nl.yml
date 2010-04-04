@@ -7,15 +7,44 @@ nl:
         replacement:   ""
 
     plural:
-      - rule:        | ^([^aeiou]+[aeiou])([^aeiou])$
-        replacement:   \1\2\2en
-        exceptions:    vat, dag, dak, pad, dal, slot, weg
+      - rule:          f$
+        replacement:   ven
+
+      - rule:          s$
+        replacement:   zen
+      
+      - rule:          ee$
+        replacement:   eeën
+      
+      - rule:          heid$
+        replacement:   heden
+      
+      - rule:          (a|i|o|u|y)$
+        replacement:   \1's
+      
+      - rule:          (e|em|el|er|erd|aar|aard|um|eur|foon|oor|ier|en|ie|eau|é)$
+        replacement:   \1s
 
       - rule:        | (a|e|o|u)\1([^aeiou])$
         replacement:   \1\2en
 
+      - rule:        | de$
+        replacement:   \1n
+        
+      - rule:        | ^([^aeiou]+[aeiou])([^aeiou])$
+        replacement:   \1\2\2en
+        exceptions:    vat, dag, dak, pad, dal, slot, weg
+
       - rule:          $
         replacement:   en
+    
+    irregular:
+      gelid:           gelederen
+    
+    uncountable:
+      - geld
+      - informatie
+      - rijst
 
   number: 
     format: 
