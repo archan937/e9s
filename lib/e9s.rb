@@ -74,20 +74,22 @@ module E9s
       end
       
       def singular(*args)
-        add_inflection :singulars , *args
+        add_inflection :singulars, *args
       end
       
       def plural(*args)
-        add_inflection :plurals   , *args
+        add_inflection :plurals  , *args
       end
       
       def irregular(*args)
-        add_inflection :irregulars, *args
+        s, pl, locale = args.first
+        (@irregulars[locale_for locale] ||= {})[s] = pl
       end
       
-      # def uncountable(*args)
-      #   (@uncountables[locale_for args.last] ||= []).concat words
-      # end
+      def uncountable(*args)
+        locale = args.last.is_a?(Symbol) ? args.pop : nil
+        (@uncountables[locale_for locale] ||= []).concat [args].flatten
+      end
       
       def dump
         puts "SINGULARS   : #{@singulars   .inspect}"
@@ -150,15 +152,26 @@ module E9s
       end
     end
   
-  private  
+  private
       
     def inflect(type, word)
+      return word if uncountable?(word)
+      
+      if irregular = (Inflections.instance.irregulars[I18n.locale] || {})[word.downcase.to_sym]
+        return irregular.cp_case(word)
+      end
+      
       (Inflections.instance.send(type)[I18n.locale] || []).each do |inflection|
         if result = inflection.inflect!(word)
           return result
         end
       end
+      
       word
+    end
+    
+    def uncountable?(word)
+      (Inflections.instance.uncountables[I18n.locale] || []).include?(word.downcase)
     end
     
   end

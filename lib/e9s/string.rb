@@ -17,36 +17,40 @@ class String
   end
   
   def t(options = {})
-    key              = self.include?(".") ? self : "word.#{self}"
-    default          = key.split(".").last
-    translating_word = key.starts_with?("word.")
-    opts             = {:pluralize => true}.merge(options)
-    
-    key.downcase!
-
-    if options.include? :default
-      puts "INFO: I18n.t #{key.inspect}, #{options.reject{|k, v| k == :pluralize}.inspect}" if RAILS_ENV == "development"
-      s = I18n.t key, options.reject{|k, v| k == :pluralize}
-      s = s[:_base] if s.is_a?(Hash)
-    else
-      puts "INFO: I18n.t #{key.inspect}, #{opts.merge({:default => translating_word ? "" : default.humanize}).reject{|k, v| k == :pluralize}.inspect}" if RAILS_ENV == "development"
-      s = I18n.t key, opts.merge({:default => translating_word ? "" : default.humanize}).reject{|k, v| k == :pluralize}
-    
-      if translating_word
-        unless translated = !s.empty?
-          puts "INFO: I18n.t #{key.singularize.inspect}, #{opts.merge({:default => ""}).reject{|k, v| k == :pluralize}.inspect}" if RAILS_ENV == "development"
-          s = I18n.t key.singularize, opts.merge({:default => ""}).reject{|k, v| k == :pluralize}
-        end
+    self.split(" ").collect do |string|
       
-        if s.empty?
-          s = default.humanize
-        else
-          s = s.pl(opts[:count]) unless !opts[:pluralize] or (opts[:count].nil? and default.dup.pluralize!)
+      key              = string.include?(".") ? string : "word.#{string}"
+      default          = key.split(".").last
+      translating_word = key.starts_with?("word.")
+      opts             = {:pluralize => true}.merge(options)
+    
+      key.downcase!
+
+      if options.include? :default
+        puts "INFO: I18n.t #{key.inspect}, #{options.reject{|k, v| k == :pluralize}.inspect}" if RAILS_ENV == "development"
+        s = I18n.t key, options.reject{|k, v| k == :pluralize}
+        s = s[:_base] if s.is_a?(Hash)
+      else
+        puts "INFO: I18n.t #{key.inspect}, #{opts.merge({:default => translating_word ? "" : default.humanize}).reject{|k, v| k == :pluralize}.inspect}" if RAILS_ENV == "development"
+        s = I18n.t key, opts.merge({:default => translating_word ? "" : default.humanize}).reject{|k, v| k == :pluralize}
+    
+        if translating_word
+          unless translated = !s.empty?
+            puts "INFO: I18n.t #{key.singularize.inspect}, #{opts.merge({:default => ""}).reject{|k, v| k == :pluralize}.inspect}" if RAILS_ENV == "development"
+            s = I18n.t key.singularize, opts.merge({:default => ""}).reject{|k, v| k == :pluralize}
+          end
+      
+          if s.empty?
+            s = default.humanize
+          else
+            s = s.pl(opts[:count]) unless !opts[:pluralize] or (opts[:count].nil? and default.dup.pluralize!)
+          end
         end
       end
-    end
     
-    s.gsub!(/^=\s+/, "") ? s : s.cp_case(default)
+      s.gsub!(/^=\s+/, "") ? s : s.cp_case(default)
+      
+    end.join " "
   end
   
   def s
