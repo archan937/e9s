@@ -1,4 +1,10 @@
-# desc "Explaining what the task does"
-# task :e9s do
-#   # Task goes here
-# end
+namespace :e9s do
+  Rake::TestTask.new :test do |t|
+    t.libs << "test"
+    t.verbose    = false
+    t.test_files = FileList.new("vendor/plugins/e9s/test/**/*.rb") do |list|
+                     # list.exclude "nl.rb"
+                   end
+  end
+  Rake::Task["test:plugins"].comment = "Run tests for e9s"
+end

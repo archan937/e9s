@@ -37,27 +37,8 @@ module E9s
     
     def pluralize(word, count = nil)
       count == 1 ? singularize(word) : inflect(:plurals, word)
-      
-      # result = begin
-      #            if count == 1
-      #              s
-      #            elsif ends_with?("s")
-      #              self
-      #            else
-      #              {
-      #                "ja"               => "ja",
-      #                "vraag"            => "vragen",
-      #                "bod"              => "biedingen",
-      #                "aanvraag"         => "aanvragen",
-      #                "organisatie"      => "organisaties",
-      #                "aanbieder"        => "aanbieders",
-      #                "vraag & antwoord" => "vragen & antwoorden",
-      #                "anoniem"          => "anoniem"
-      #              }[self] || "#{self}en"
-      #            end
-      #          end
-      # [count, result].compact.join " "
-      
+
+      # "vraag & antwoord" => "vragen & antwoorden",
     end
     
     class Inflections
