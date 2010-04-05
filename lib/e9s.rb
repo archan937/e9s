@@ -3,8 +3,17 @@ module E9s
   module Plugin
     extend self
     
-    def init(reset_attrs = false)
-      E9s::Inflector.inflections.reset_attrs if reset_attrs
+    def init(test_class = nil)
+      if test_class
+        test_locale = test_class.name.demodulize.downcase.to_sym
+        
+        I18n.load_path = ["vendor/plugins/e9s/locales/#{test_locale}.yml"]
+        I18n.backend.reload!
+        
+        E9s::Inflector.inflections.reset_attrs
+      end
+      
+      initial_locale = I18n.locale
       
       I18n.backend.available_locales.each do |locale|
         I18n.locale = locale
@@ -18,7 +27,9 @@ module E9s
         end
       end
       
-      I18n.locale = I18n.default_locale
+      I18n.locale = initial_locale
+      
+      test_locale
     end
     
   end

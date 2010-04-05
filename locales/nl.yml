@@ -26,7 +26,7 @@ nl:
         replacement:   \1\2\2en
         exceptions:    vat, dag, dak, pad, dal, slot, weg
 
-      - rule:        | de$
+      - rule:          de$
         replacement:   \1n
         
       - rule:          f$

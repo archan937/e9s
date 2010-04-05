@@ -6,13 +6,7 @@ module E9s
 
       class NL < ActiveSupport::TestCase
         setup do
-          locale = self.name.demodulize.downcase.to_sym
-          
-          I18n.load_path = ["vendor/plugins/e9s/locales/#{locale}.yml"]
-          I18n.backend.reload!
-          
-          ::E9s::Plugin.init(true)
-          I18n.locale = locale
+          I18n.locale = ::E9s::Plugin.init(self)
         end
         
         test "dutch_pluralization" do
