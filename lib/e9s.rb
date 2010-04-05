@@ -52,8 +52,6 @@ module E9s
     
     def pluralize(word, count = nil)
       count == 1 ? singularize(word) : inflect(:plurals, word)
-
-      # "vraag & antwoord" => "vragen & antwoorden",
     end
     
     class Inflections
