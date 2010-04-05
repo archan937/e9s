@@ -5,9 +5,9 @@ module E9s
     module E9s
 
       class Symbol < ActiveSupport::TestCase
-        test "t" do
-          assert true
-        end
+        # test "t" do
+        #   assert true
+        # end
       end
       
     end

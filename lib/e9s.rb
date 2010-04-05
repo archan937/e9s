@@ -3,13 +3,17 @@ module E9s
   module Plugin
     extend self
     
-    def init
-      AVAILABLE_LOCALES.each do |locale|
+    def init(reset_attrs = false)
+      E9s::Inflector.inflections.reset_attrs if reset_attrs
+      
+      I18n.backend.available_locales.each do |locale|
         I18n.locale = locale
         
-        (I18n.t! "e9s" rescue []).each do |type, inflections|
-          inflections.each do |inflection|
-            E9s::Inflector.inflections.send type, inflection
+        E9s::Inflector.inflections locale do |inflections|
+          (I18n.t! "e9s" rescue []).each do |type, entries|
+            entries.each do |inflection|
+              inflections.send *[type, inflection].flatten
+            end
           end
         end
       end
@@ -48,11 +52,16 @@ module E9s
       attr_writer :locale
 
       def initialize
+        set_attrs
+      end
+      
+      def set_attrs
         %w(singulars plurals irregulars uncountables).each do |x|
           instance_variable_set :"@#{x}", {}
         end
         @locale = I18n.default_locale
       end
+      alias :reset_attrs :set_attrs
       
       def singular(*args)
         add_inflection :singulars, *args
@@ -63,13 +72,13 @@ module E9s
       end
       
       def irregular(*args)
-        s, pl, locale = args.first
-        (@irregulars[locale_for locale] ||= {})[s] = pl
+        locale, s, pl = extract_args(*args)
+        (@irregulars[locale] ||= {})[s] = pl
       end
       
       def uncountable(*args)
-        locale = args.last.is_a?(Symbol) ? args.pop : nil
-        (@uncountables[locale_for locale] ||= []).concat [args].flatten
+        locale, words = extract_args(*args)
+        (@uncountables[locale] ||= []).concat [words].flatten
       end
       
       def dump
@@ -83,17 +92,23 @@ module E9s
     private
     
       def add_inflection(type, *args)
-        inflections = instance_variable_get(:"@#{type}")
-        locale      = locale_for       *args
-        inflection  = Inflection.build *args
+        locale, values = extract_args(*args)
+        inflections    = instance_variable_get(:"@#{type}")
+        inflection     = Inflection.build values
         
         (inflections[locale] ||= []).push inflection
       end
     
-      def locale_for(*args)
-        locale = args.first.is_a?(Hash) ? args.first[:locale] : args[3]
-        
-        [locale, @locale].detect{|x| x.is_a?(Symbol)} || I18n.default_locale
+      def extract_args(*args)
+        locale = begin
+                   if args.last.is_a?(Symbol)
+                     args.pop
+                   elsif args.last.is_a?(Hash)
+                     args.delete(:locale)
+                   end
+                 end
+                 
+        args.unshift [locale, @locale].detect{|x| x.is_a?(Symbol)} || I18n.default_locale
       end
     
       Inflection = Struct.new(:rule, :replacement, :exceptions) do

@@ -7,12 +7,6 @@ nl:
         replacement:   ""
 
     plural:
-      - rule:          f$
-        replacement:   ven
-
-      - rule:          s$
-        replacement:   zen
-      
       - rule:          ee$
         replacement:   eeën
       
@@ -27,13 +21,19 @@ nl:
 
       - rule:        | (a|e|o|u)\1([^aeiou])$
         replacement:   \1\2en
-
-      - rule:        | de$
-        replacement:   \1n
         
       - rule:        | ^([^aeiou]+[aeiou])([^aeiou])$
         replacement:   \1\2\2en
         exceptions:    vat, dag, dak, pad, dal, slot, weg
+
+      - rule:        | de$
+        replacement:   \1n
+        
+      - rule:          f$
+        replacement:   ven
+
+      - rule:          s$
+        replacement:   zen
 
       - rule:          $
         replacement:   en

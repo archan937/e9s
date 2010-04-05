@@ -15,25 +15,25 @@ module E9s
           assert_equal nil  , "E9s".upcase_first!
         end
       
-        test "pluralize!" do
-          assert true
-        end
+        # test "pluralize!" do
+        #   assert true
+        # end
       
-        test "cp_case" do
-          assert true
-        end
+        # test "cp_case" do
+        #   assert true
+        # end
       
-        test "t" do
-          assert true
-        end
+        # test "t" do
+        #   assert true
+        # end
       
-        test "s" do
-          assert true
-        end
+        # test "s" do
+        #   assert true
+        # end
       
-        test "pl" do
-          assert true
-        end
+        # test "pl" do
+        #   assert true
+        # end
       end
    
     end 

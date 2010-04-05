@@ -3,7 +3,7 @@ namespace :e9s do
     t.libs << "test"
     t.verbose    = false
     t.test_files = FileList.new("vendor/plugins/e9s/test/**/*.rb") do |list|
-                     # list.exclude "nl.rb"
+                     # list.exclude "foo.rb"
                    end
   end
   Rake::Task["test:plugins"].comment = "Run tests for e9s"
