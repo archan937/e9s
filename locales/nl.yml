@@ -50,8 +50,11 @@ nl:
     house:    huis
     street:   straat
     question: vraag
+    answer:   antwoord
     one:      één
     more:     meer
+    male:     man
+    female:   vrouw
 
   number: 
     format: 
