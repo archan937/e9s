@@ -9,7 +9,7 @@ module E9s
           I18n.locale = ::E9s::Plugin.init(self)
         end
         
-        test "dutch_pluralization" do
+        test "dutch_pluralizations" do
           assert_equal "vinnen"             , "vin".pl
           assert_equal "tassen"             , "tas".pl
           assert_equal "telefoons"          , "telefoon".pl

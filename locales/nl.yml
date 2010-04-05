@@ -45,6 +45,13 @@ nl:
       - geld
       - informatie
       - rijst
+  
+  word:
+    house:    huis
+    street:   straat
+    question: vraag
+    one:      één
+    more:     meer
 
   number: 
     format: 

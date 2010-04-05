@@ -13,7 +13,7 @@ class String
   end
   
   def cp_case(s)
-    send((:downcase unless s.dup.downcase!) || (:upcase_first unless s.dup.upcase_first!) || (:upcase unless s.dup.upcase!) || :to_s)
+    send((:downcase unless s.dup.downcase!) || (:upcase unless s.dup.upcase!) || (:upcase_first unless s.dup.upcase_first!) || :to_s)
   end
   
   def t(options = {})
