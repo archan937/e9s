@@ -11,6 +11,8 @@ module E9s
         I18n.backend.reload!
         
         E9s::Inflector.inflections.reset_attrs
+      else
+        I18n.load_path += Dir[Rails.root.join("vendor", "plugins", "e9s", "locales", "*.yml")]
       end
       
       initial_locale = I18n.locale
