@@ -5,6 +5,7 @@ Enrichments (e9s) for Ruby Internationalization (i18n)
 == Introduction
 
 E9s was created due to the need of simply implementing i18n within a Rails application. It enriches I18n, Formtastic, the String and Symbol classes to make life easier for the Rails developer.
+
 Want to see what Enrichments (e9s) really has to offer within a couple of seconds? Please visit http://github.com/archan937/e9s-demo for a complete demo application.
 
 == How to use
