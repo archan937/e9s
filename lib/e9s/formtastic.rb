@@ -7,7 +7,7 @@ module Formtastic
     end
 
     def input_with_enrichments(*args)
-      object      = @object.class.name.underscore
+      object      = (@object.class.name.underscore if @object) || @object_name.match(/\[(\w+)_attributes\]/).captures.first
       method      = args.shift
       options     = args.extract_options!
       wrapper_tag = options.delete(:wrapper_tag)
