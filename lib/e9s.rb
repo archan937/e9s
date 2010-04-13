@@ -8,12 +8,12 @@ module E9s
         test_locale = test_class.name.demodulize.downcase.to_sym
         
         I18n.load_path = ["vendor/plugins/e9s/locales/#{test_locale}.yml"]
-        I18n.backend.reload!
-        
-        E9s::Inflector.inflections.reset_attrs
       else
         I18n.load_path += Dir[Rails.root.join("vendor", "plugins", "e9s", "locales", "*.yml")]
       end
+
+      I18n.backend.reload!
+      E9s::Inflector.inflections.reset_attrs if test_class
       
       initial_locale = I18n.locale
       
