@@ -1,6 +1,6 @@
 
-module Formtastic
-  module Enrichments
+module E9s
+  module Formtastic
     
     def self.included(base)
       base.alias_method_chain :input, :enrichments
@@ -46,5 +46,3 @@ module Formtastic
     
   end  
 end
-
-Formtastic::SemanticFormBuilder.send :include, Formtastic::Enrichments if defined?(Formtastic::SemanticFormBuilder)
