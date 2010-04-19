@@ -84,7 +84,7 @@ module E9s
       
       def irregular(*args)
         locale, s, pl = extract_args(*args)
-        (@irregulars[locale] ||= {})[s] = pl
+        (@irregulars[locale] ||= {})[s.to_s] = pl
       end
       
       def uncountable(*args)
@@ -160,17 +160,23 @@ module E9s
     end
   
   private
+    
+    [:singulars, :plurals, :irregulars, :uncountables].each do |type|
+      define_method type do
+        (Inflections.instance.send(type)[I18n.locale] || (type == :uncountables ? [] : {}))
+      end
+    end
       
     def inflect(type, word)
-      return word if uncountable?(word)
+      return word if uncountable?(word) or irregular_counterpart?(type, word)
       
-      if irregular = (Inflections.instance.irregulars[I18n.locale] || {})[word.downcase.to_sym]
+      if irregular = irregulars[word.downcase]
         return irregular.cp_case(word)
       end
       
-      (Inflections.instance.send(type)[I18n.locale] || []).each do |inflection|
+      send(type).each do |inflection|
         if result = inflection.inflect!(word)
-          return result
+          return result.cp_case(word)
         end
       end
       
@@ -178,7 +184,11 @@ module E9s
     end
     
     def uncountable?(word)
-      (Inflections.instance.uncountables[I18n.locale] || []).include?(word.downcase)
+      uncountables.include?(word.downcase)
+    end
+    
+    def irregular_counterpart?(type, word)
+      irregulars.send({:singulars => :keys, :plurals => :values}[type]).include?(word.downcase)
     end
     
   end
