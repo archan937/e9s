@@ -1,7 +1,9 @@
 
 class String
   def upcase_first
-    self[0].chr.capitalize + self[1, size]
+    empty? ?
+      self :
+      self[0].chr.capitalize + self[1, size]
   end
   
   def upcase_first!

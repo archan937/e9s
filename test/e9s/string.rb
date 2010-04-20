@@ -6,11 +6,13 @@ module E9s
 
       class String < ActiveSupport::TestCase
         test "upcase_first" do
+          assert_equal ""   , ""   .upcase_first
           assert_equal "E9s", "e9s".upcase_first
           assert_equal "E9S", "E9S".upcase_first
         end
       
         test "upcase_first!" do
+          assert_equal nil  , ""   .upcase_first!
           assert_equal "E9s", "e9s".upcase_first!
           assert_equal nil  , "E9s".upcase_first!
         end
