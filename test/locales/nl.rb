@@ -18,6 +18,10 @@ module E9s
           assert_equal "brieven"            , "brief".pl
           assert_equal "broeken"            , "broek".pl
           assert_equal "tekens"             , "teken".pl
+          assert_equal "begrafenissen"      , "begrafenis".pl
+          assert_equal "diners"             , "diner".pl
+          assert_equal "jubilea"            , "jubileum".pl
+          assert_equal "festivals"          , "festival".pl
           # assert_equal "vazen"              , "vaas".pl
           # assert_equal "vragen & antwoorden", "vraag & antwoord".pl
         end
