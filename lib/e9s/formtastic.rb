@@ -14,25 +14,25 @@ module E9s
       wrapper_tag = options.delete(:wrapper_tag)
 
       unless options.include?(:label)
-        keys = [:"label.#{object}.#{method}", :"label.#{method}", :"word.#{method}", method.humanize]
+        keys = [:"label.#{object}.#{method}", :"label.#{method}", :"word.#{method}"]
         
         if @options.include?(:name)
-          keys.unshift :"label.forms.#{@options[:name]}.#{object}.#{method}"
           keys.unshift :"label.forms.#{@options[:name]}.#{method}"
+          keys.unshift :"label.forms.#{@options[:name]}.#{object}.#{method}"
         end
         
-        options[:label] = keys.shift.t :default => keys
+        options[:label] = keys.shift.t :default => keys, :capitalize => true
       end
       
       unless options.include?(:seatholder)
-        keys = [:"seatholder.#{object}.#{method}", :"seatholder.#{method}", method, ""]
+        keys = [:"seatholder.#{object}.#{method}", :"seatholder.#{method}", ""]
         
         if @options.include?(:name)
-          keys.unshift :"seatholder.forms.#{@options[:name]}.#{object}.#{method}"
           keys.unshift :"seatholder.forms.#{@options[:name]}.#{method}"
+          keys.unshift :"seatholder.forms.#{@options[:name]}.#{object}.#{method}"
         end
         
-        seatholder = keys.shift.t :default => keys
+        seatholder = keys.shift.t :default => keys, :capitalize => true
         options[:seatholder] = seatholder unless seatholder.empty? 
       end
       
