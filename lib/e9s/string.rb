@@ -24,33 +24,31 @@ class String
       key              = string.include?(".") ? string : "word.#{string}"
       default          = key.split(".").last
       translating_word = key.starts_with?("word.")
-      opts             = {:pluralize => true}.merge(options)
     
       key.downcase!
+      options[:pluralize] ||= true
 
       if options.include? :default
-        puts "INFO: I18n.t #{key.inspect}, #{options.reject{|k, v| k == :pluralize}.inspect}" if RAILS_ENV == "development"
-        s = I18n.t key, options.reject{|k, v| k == :pluralize}
+        options[:default] = [options[:default]].flatten << default.humanize
+        s = i18n_t key, options
         s = s[:_base] if s.is_a?(Hash)
       else
-        puts "INFO: I18n.t #{key.inspect}, #{opts.merge({:default => translating_word ? "" : default.humanize}).reject{|k, v| k == :pluralize}.inspect}" if RAILS_ENV == "development"
-        s = I18n.t key, opts.merge({:default => translating_word ? "" : default.humanize}).reject{|k, v| k == :pluralize}
+        s = i18n_t key, options.merge({:default => translating_word ? "" : default.humanize})
     
         if translating_word
           unless translated = !s.empty?
-            puts "INFO: I18n.t #{key.singularize.inspect}, #{opts.merge({:default => ""}).reject{|k, v| k == :pluralize}.inspect}" if RAILS_ENV == "development"
-            s = I18n.t key.singularize, opts.merge({:default => ""}).reject{|k, v| k == :pluralize}
+            s = i18n_t key.singularize, options.merge({:default => ""})
           end
       
           if s.empty?
             s = default.humanize
           else
-            s = s.pl(opts[:count]) unless !opts[:pluralize] or (opts[:count].nil? and default.dup.pluralize!)
+            s = s.pl(options[:count]) unless !options[:pluralize] or (options[:count].nil? and default.dup.pluralize!)
           end
         end
       end
     
-      s.gsub!(/^=\s+/, "") ? s : s.cp_case(default)
+      s.gsub!(/^=\s+/, "") ? s : s.cp_case(options[:capitalize] ? default.capitalize : default)
       
     end.join " "
   end
@@ -62,4 +60,19 @@ class String
   def pl(count = nil)
     E9s::Inflector.pluralize self, count
   end
+  
+private
+
+  E9S_OPTIONS = [:count, :pluralize, :capitalize]
+
+  def i18n_t(key, opts = {})
+    options = opts.reject{|k, v| E9S_OPTIONS.include?(k)}
+    
+    if RAILS_ENV == "development"
+      puts "INFO: I18n.t #{key.inspect}, #{options.inspect}"
+    end
+    
+    I18n.t key, options
+  end
+  
 end
