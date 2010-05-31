@@ -27,17 +27,17 @@ module E9s
         i18n.swap i18n.inner_html
       end
 
-      (doc/"body i18n").each do |i18n|
+      (doc/"i18n").each do |i18n|
         elem = Hpricot::Elem.new "span", i18n.raw_attributes.merge({:class => "i18n"})
         elem.inner_html = i18n.inner_html
         i18n.swap elem.to_html
       end
 
-      (doc/"body input").each do |input|
+      (doc/"input").each do |input|
         sanitize_input(input)
       end
 
-      (doc/"body textarea").each do |input|
+      (doc/"textarea").each do |input|
         sanitize_input(input)
       end
 
