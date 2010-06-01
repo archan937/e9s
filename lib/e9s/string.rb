@@ -1,6 +1,6 @@
 
 class String
-  cattr_accessor :capturing_template_content
+  cattr_accessor :taggify_translations
   
   def upcase_first
     empty? ?
@@ -35,7 +35,8 @@ class String
       translating_word = key.starts_with?("word.")
     
       key.downcase!
-      options[:pluralize] ||= true
+      options[:pluralize]          ||= true
+      options[:translate_callback] ||= LOGGER_PROC if RAILS_ENV == "development"
 
       if options.include? :default
         options[:default] = [options[:default]].flatten << default.humanize
@@ -66,7 +67,7 @@ class String
         s.cp_case! options[:capitalize] ? default.capitalize : default
       end
 
-      String.capturing_template_content ? taggify(string, s, key, value) : s
+      String.taggify_translations ? taggify(string, s, key, value) : s
       
     end.join " "
   end
@@ -81,16 +82,16 @@ class String
   
 private
 
-  E9S_OPTIONS = [:count, :pluralize, :capitalize]
+  E9S_OPTIONS = [:count, :pluralize, :capitalize, :translate_callback]
+  LOGGER_PROC = Proc.new{|translation, key, options| puts "INFO: I18n.t #{key.inspect}, #{options.inspect}"}
 
   def i18n_t(key, opts = {})
     options = opts.reject{|k, v| E9S_OPTIONS.include?(k)}
     
-    if RAILS_ENV == "development"
-      puts "INFO: I18n.t #{key.inspect}, #{options.inspect}"
-    end
+    translation = I18n.t key, options
+    opts[:translate_callback].try :call, translation, key, options
     
-    I18n.t key, options
+    translation
   end
   
   def taggify(key, value, actual_key, actual_value)

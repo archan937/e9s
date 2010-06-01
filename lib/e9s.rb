@@ -3,6 +3,8 @@ module E9s
   module Plugin
     extend self
     
+    attr_accessor :taggify_restriction
+    
     def init(test_class = nil)
       if test_class
         test_locale = test_class.name.demodulize.downcase.to_sym
