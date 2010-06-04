@@ -88,7 +88,7 @@ private
   def i18n_t(key, opts = {})
     options = opts.reject{|k, v| E9S_OPTIONS.include?(k)}
     
-    translation = I18n.t key, options
+    translation = I18n.t key, Hash[*options.collect{|k, v| [k, v.is_a?(String) && v.include?("<i18n") ? v.gsub(/(\<i18n[^\>]+\>)|(\<\/i18n\>)/, "") : v]}.flatten]
     opts[:translate_callback].try :call, translation, key, options
     
     translation

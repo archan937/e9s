@@ -49,6 +49,8 @@ module E9s
       end
 
       doc.to_html
+    rescue
+      html.gsub(/(\<i18n[^\>]+\>)|(\<\/i18n\>)/, "")
     end
     
     def sanitize_input(input)
