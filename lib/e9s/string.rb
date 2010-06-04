@@ -86,9 +86,12 @@ private
   LOGGER_PROC = Proc.new{|translation, key, options| puts "INFO: I18n.t #{key.inspect}, #{options.inspect}"}
 
   def i18n_t(key, opts = {})
-    options = opts.reject{|k, v| E9S_OPTIONS.include?(k)}
+    options = opts.inject({}) do |hash, (k, v)|
+                hash[k] = v.is_a?(String) && v.include?("<i18n") ? v.gsub(/(\<i18n[^\>]+\>)|(\<\/i18n\>)/, "") : v unless E9S_OPTIONS.include?(k)
+                hash
+              end
     
-    translation = I18n.t key, Hash[*options.collect{|k, v| [k, v.is_a?(String) && v.include?("<i18n") ? v.gsub(/(\<i18n[^\>]+\>)|(\<\/i18n\>)/, "") : v]}.flatten]
+    translation = I18n.t key, options
     opts[:translate_callback].try :call, translation, key, options
     
     translation
