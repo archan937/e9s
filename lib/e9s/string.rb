@@ -91,7 +91,7 @@ private
                 hash
               end
     
-    translation = I18n.t key, options
+    translation = I18n.t(key, options).dup
     opts[:translate_callback].try :call, translation, key, options
     
     translation
