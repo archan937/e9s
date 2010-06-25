@@ -7,10 +7,13 @@ module E9s
         def self.included(base)
           base.cattr_accessor :taggify_translations
           base.extend ClassMethods
+          base.send :include, InstanceMethods
         end
 
         module ClassMethods
-          include InstanceMethods
+          # def something
+          #   
+          # end
         end
         
         module InstanceMethods
@@ -53,7 +56,7 @@ module E9s
                 s.cp_case! options[:capitalize] ? default.capitalize : default
               end
 
-              String.taggify_translations ? taggify(string, s, key, value) : s
+              taggify_translations ? taggify(string, s, key, value) : s
       
             end.join " "
           end
