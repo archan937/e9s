@@ -3,9 +3,10 @@ require "test_helper"
 module E9s
   module Test
 
-    class Plugin < ActiveSupport::TestCase
+    class EngineTest < ActiveSupport::TestCase
       setup do
-        I18n.locale = ::E9s::Plugin.init(Locales::NL)
+        include Setup
+        I18n.locale = ::E9s::Engine.init(Locales::NL)
       end
       
       test "singular_translations" do

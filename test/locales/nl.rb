@@ -6,7 +6,8 @@ module E9s
 
       class NL < ActiveSupport::TestCase
         setup do
-          I18n.locale = ::E9s::Plugin.init(self)
+          include Setup
+          I18n.locale = ::E9s::Engine.init(self)
         end
         
         test "dutch_pluralizations" do
