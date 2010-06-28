@@ -5,7 +5,7 @@ Enrichments (e9s) for Ruby Internationalization (i18n)
 
 h2. Introduction
 
-E9s was created due to the need of simply implementing i18n within a Rails application. It enriches I18n, Formtastic, the String and Symbol classes to make life easier for the Rails developer. A list of E9s' features:
+E9s was created due to the need of simply implementing I18n within a Rails application. It enriches I18n, Formtastic, the String and Symbol classes to make life easier for the Rails developer. A list of E9s' features:
 
 h3. I18n
 
@@ -17,7 +17,7 @@ h3. I18n
 h3. Formtastic
 
 * @Labels and seatholders@ - Not only translate labels but also hint text (so called @seatholders@)
-* @Unobtrusive implementation@ - Translate labels and seatholders unobtrusively, in other words: leave your @semantic_form_for@ (code completely untouched)
+* @Unobtrusive implementation@ - Translate labels and seatholders unobtrusively, in other words: leave your @semantic_form_for@ (view) code completely untouched
 * @Specific translations@ - Not only specify general translations for labels and seatholders, but make them model or even form specific
 
 h3. Inflections
@@ -57,8 +57,83 @@ Optionally, you can also install the Formtastic plugin:
 
 h2. Usage
 
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+h3. Populating config/locales
+
+At default, I18n uses @I18n::Backend::Simple@ of which translations are stored within YAML files located in @config/locales@. When adding a new language, it is adviced to copy a YAML file from "http://github.com/svenfuchs/rails-i18n/tree/master/rails/locale":http://github.com/svenfuchs/rails-i18n/tree/master/rails/locale in which you can add your translations. Of course, you can also use other I18n backends like @I18n::Backend::ActiveRecord@ for translations stored in the database.
+
+h3. Words
+
+As E9s automatically singularizes or pluralizes the translation (depending on the passed key), you only have to specify translations in singular form. For instance:
+
+*Note*: specified in @config/locales/nl.yml@
+
+<pre>
+---
+nl:
+  
+  word:
+    "yes":   ja
+    "no":    nee
+    house:   huis
+    letter:  brief
+    sign:    teken
+    user:    gebruiker
+    more:    meer
+</pre>
+
+h3. String / Symbol methods
+
+E9s adds the following methods to strings and symbols:
+
+* @t@ - which translates the string or symbol
+* @pl@ - which pluralizes the string or symbol with the inflections of the current I18n locale
+
+Further more, E9s has enriched the String class with methods as @upcase_first@, @cp_case@, @upcase_first!@ and @pluralize!@. Visit "http://github.com/archan937/e9s/blob/gem/lib/e9s/core/string/inflections.rb":http://github.com/archan937/e9s/blob/gem/lib/e9s/core/string/inflections.rb to see all the methods.
+
+h3. Default values and case preservation
+
+When not specified, E9s returns a default value based on the passed key: it splits the key on @"."@ and (sort of) humanizes the last part. Sort of, because it actually replaces @"_"@ with @" "@ and it copies the casing of the key with the @cp_case@ method of the @String@ class.
+
+h3. Combine keys
+
+Combine translations by using a string which contains keys joined with spaces.
+
+h3. I18n examples
+
+As a result of the YAML file specified above, you will get the following translations in your Rails console:
+
+<pre>
+  >> "word.house".t
+  => "huis"
+  >> "word.Event".t
+  => "Event"
+  >> "LETTERS".t
+  => "BRIEVEN"
+  >> "application.index.Welcome_to_our_site".t
+  => "Welcome to our site"
+  >> "word.users".t
+  => "gebruikers"
+  >> "Signs".t
+  => "Tekens"
+  >> "MORE USERS".t
+  => "MEER GEBRUIKERS"
+</pre>
+
+h3. Labels
+
+Lorem ipsum.
+
+h3. Seatholders
+
+Dolor sit.
+
+h3. Specific translations
+
+Amet consectetur.
+
+h3. Formtastic examples
+
+Adipisicing elit.
 
 h2. Contact me
 
