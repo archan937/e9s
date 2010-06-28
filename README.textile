@@ -63,7 +63,7 @@ At default, I18n uses @I18n::Backend::Simple@ of which translations are stored w
 
 h3. Words
 
-As E9s automatically singularizes or pluralizes the translation (depending on the passed key), you only have to specify translations in singular form. For instance:
+As E9s automatically singularizes or pluralizes the translation (depending on the passed key), you only have to specify translations in singular form.
 
 *Note*: specified in @config/locales/nl.yml@
 
@@ -88,15 +88,15 @@ E9s adds the following methods to strings and symbols:
 * @t@ - which translates the string or symbol
 * @pl@ - which pluralizes the string or symbol with the inflections of the current I18n locale
 
-Further more, E9s has enriched the String class with methods as @upcase_first@, @cp_case@, @upcase_first!@ and @pluralize!@. Visit "http://github.com/archan937/e9s/blob/gem/lib/e9s/core/string/inflections.rb":http://github.com/archan937/e9s/blob/gem/lib/e9s/core/string/inflections.rb to see all the methods.
+Further more, E9s has enriched the String class with methods as @upcase_first@, @cp_case@, @upcase_first!@ and @pluralize!@. Please visit "http://github.com/archan937/e9s/blob/gem/lib/e9s/core/string/inflections.rb":http://github.com/archan937/e9s/blob/gem/lib/e9s/core/string/inflections.rb to see all the methods.
 
 h3. Default values and case preservation
 
 When not specified, E9s returns a default value based on the passed key: it splits the key on @"."@ and (sort of) humanizes the last part. Sort of, because it actually replaces @"_"@ with @" "@ and it copies the casing of the key with the @cp_case@ method of the @String@ class.
 
-h3. Combine keys
+h3. Combined keys
 
-Combine translations by using a string which contains keys joined with spaces.
+You can combine translations by using passed string containing translation keys joined with spaces.
 
 h3. I18n examples
 
@@ -117,6 +117,8 @@ As a result of the YAML file specified above, you will get the following transla
   => "Tekens"
   >> "MORE USERS".t
   => "MEER GEBRUIKERS"
+  >> "More houses".t
+  => "Meer huizen"
 </pre>
 
 h3. Labels
