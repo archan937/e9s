@@ -1,23 +1,35 @@
 
-h1. e9s
+h1. E9s
 
 Enrichments (e9s) for Ruby Internationalization (i18n)
 
 h2. Introduction
 
-E9s was created due to the need of simply implementing i18n within a Rails application. It enriches I18n, Formtastic, the String and Symbol classes to make life easier for the Rails developer. Want to see what Enrichments (e9s) really has to offer within a couple of seconds? Please visit "http://github.com/archan937/e9s-demo":http://github.com/archan937/e9s-demo for a complete demo application.
+E9s was created due to the need of simply implementing i18n within a Rails application. It enriches I18n, Formtastic, the String and Symbol classes to make life easier for the Rails developer. A list of E9s' features:
+
+h3. I18n
+
+* @Localized pluralization@ - Translations only in singular form are sufficient enough as E9s can pluralize in foreign languages
+* @Default values@ - Use the translation key (or a portion) as default value: @"continue".t@ returns @"continue"@ and @"text.Welcome_to_our_site".t@ returns @"Welcome to our site"@
+* @An easy interface@ - Just call the @t@ method on string and symbols to translate and @pl@ to pluralize
+* @Combine translations@ - Joining keys with spaces combines translations: @"More houses".t@ returns @"Meer huizen"@ in Dutch
+
+h3. Formtastic
+
+* @Labels and seatholders@ - Not only translate labels but also hint text (so called @seatholders@)
+* @Unobtrusive implementation@ - Translate labels and seatholders unobtrusively, in other words: leave your @semantic_form_for@ (code completely untouched)
+* @Specific translations@ - Not only specify general translations for labels and seatholders, but make them model or even form specific
+
+h3. Inflections
+
+* @Preserve character casing@ - E9s preserves the casing in your translations: @"save".t@ returns @"bewaar"@, @"Save".t@ returns @"Bewaar"@ and @"SAVE".t@ returns @"BEWAAR"@ in Dutch
+* @Preserve pluralization@ - E9s singularizes or pluralizes your translations depending on the key: @"house".t@ returns @"huis"@ and @"Houses".t@ returns @"Huizen"@ in Dutch
 
 h2. Installation
 
-h3. Using e9s as gem
+h3. Using E9s as gem
 
-Add gemcutter as a gem source, if you haven't already done it:
-
-<pre>
-  sudo gem sources -a http://gemcutter.org/
-</pre>
-
-Install the e9s gem:
+Install the E9s gem:
 
 <pre>
   sudo gem install e9s
@@ -29,9 +41,9 @@ Add e9s in environment.rb as a gem dependency:
   config.gem "e9s"
 </pre>
 
-h3. Using e9s as plugin
+h3. Using E9s as plugin
 
-Install the e9s plugin:
+Install the E9s plugin:
 
 <pre>
   ./script/plugin install git://github.com/archan937/e9s.git 
@@ -64,10 +76,10 @@ Formtastic (optional)<br>
 
 h2. ToDo's
 
-* Complete the Dutch inflections
 * Complete README.textile
 * Correct CHANGELOG and VERSION
-* Use the XSS approach for printing internationalized strings
+* Use the XSS approach when printing translated strings within views to add meta data
+* Complete the Dutch inflections
 
 h2. License
 

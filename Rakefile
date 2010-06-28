@@ -5,12 +5,14 @@ require "rake/rdoctask"
 begin
   require "jeweler"
   Jeweler::Tasks.new do |gemspec|
-    gemspec.name        = "E9s"
+    gemspec.name        = "e9s"
     gemspec.summary     = "Enrichments (e9s) for Ruby Internationalization (i18n)"
     gemspec.description = "E9s was created due to the need of simply implementing i18n within a Rails application. It enriches I18n, Formtastic, the String and Symbol classes to make life easier for the Rails developer."
     gemspec.email       = "paul.engel@holder.nl"
     gemspec.homepage    = "http://github.com/archan937/e9s"
-    gemspec.authors     = ["Paul Engel"]
+    gemspec.author      = "Paul Engel"
+
+    gemspec.add_dependency "formtastic"
   end
   Jeweler::GemcutterTasks.new
 rescue LoadError
