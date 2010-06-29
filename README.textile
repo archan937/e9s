@@ -127,19 +127,49 @@ As a result of the YAML file specified above, you will get the following transla
 
 h3. Labels
 
-Lorem ipsum.
+You can translate labels within Formtastic forms (@semantic_form_for@'s) without altering its code.
+
+<pre>
+---
+nl:
+  
+  word:
+    password:       wachtwoord
+  
+  label:
+    user_name:      gebruikersnaam
+    content:        bericht
+    
+    Question:
+      content:      jouw vraag
+    
+    Answer:
+      content:      jouw antwoord
+    
+    (search_form)
+      criteria:     uw zoekcriteria
+</pre>
 
 h3. Seatholders
 
-Dolor sit.
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 
-h3. Specific translations
-
-Amet consectetur.
-
-h3. Formtastic examples
-
-Adipisicing elit.
+<pre>
+---
+nl:
+  
+  seatholder:
+    email_address:  uw.naam@uw.website.com
+    
+    Question:
+      content:      Hoeveel uren zitten in een dag?
+    
+    Answer:
+      content:      24 uur
+    
+    (search_form)
+      criteria:     '&Voorbeeld'
+</pre>
 
 h2. Contact me
 
@@ -158,8 +188,12 @@ Formtastic (optional)<br>
 h2. ToDo's
 
 * Complete README.textile
-* Correct CHANGELOG and VERSION
+** Inflections
+** Labels
+** Seatholder
+* Adjust label and seatholder matching the README examples
 * Use the XSS approach when printing translated strings within views to add meta data
+* Correct CHANGELOG and VERSION
 * Complete the Dutch inflections
 
 h2. License
