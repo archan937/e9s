@@ -83,7 +83,9 @@ nl:
 
 h3. Pluralization
 
-A *very powerful* feature of E9s is pluralization which resembles the inflections of @ActiveSupport::Inflector@. Unfortunately, specifying inflections within @config/initializers/inflections.rb@ also influences your Rails application and thus causes great problems. You will have to use regular expressions in order to specify inflections.
+A *very powerful* feature of E9s is pluralization which resembles the inflections of @ActiveSupport::Inflector@. Unfortunately, specifying inflections within @config/initializers/inflections.rb@ also influences your Rails application and thus causes great problems.
+
+E9s provides you to specify pluralization rules for different locales. You have to use regular expressions in order to specify those inflections.
 
 *Note*: specified in @config/locales/nl.yml@
 
