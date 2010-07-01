@@ -7,7 +7,7 @@ module E9s
     end
 
     def input_with_enrichments(*args)
-      object      = (@object.class.name.underscore if @object) || @object_name.match(/\[(\w+)_attributes\]/).captures.first
+      object      = (@object.class.name if @object) || @object_name.match(/\[(\w+)_attributes\]/).captures.first.classify
       method_arg  = args.shift
       method      = method_arg.to_s
       options     = args.extract_options!
@@ -17,8 +17,8 @@ module E9s
         keys = [:"label.#{object}.#{method}", :"label.#{method}", :"word.#{method}"]
         
         if @options.include?(:name)
-          keys.unshift :"label.forms.#{@options[:name]}.#{method}"
-          keys.unshift :"label.forms.#{@options[:name]}.#{object}.#{method}"
+          keys.unshift :"label.forms.(#{@options[:name]}).#{method}"
+          keys.unshift :"label.forms.(#{@options[:name]}).#{object}.#{method}"
         end
         
         options[:label] = keys.shift.t :default => keys, :capitalize => true
@@ -28,8 +28,8 @@ module E9s
         keys = [:"seatholder.#{object}.#{method}", :"seatholder.#{method}", ""]
         
         if @options.include?(:name)
-          keys.unshift :"seatholder.forms.#{@options[:name]}.#{method}"
-          keys.unshift :"seatholder.forms.#{@options[:name]}.#{object}.#{method}"
+          keys.unshift :"seatholder.forms.(#{@options[:name]}).#{method}"
+          keys.unshift :"seatholder.forms.(#{@options[:name]}).#{object}.#{method}"
         end
         
         seatholder = keys.shift.t :default => keys, :capitalize => true
