@@ -1,5 +1,11 @@
 = E9s CHANGELOG
 
+== Version 1.0.3 (July 4, 2010)
+
+* Improved E9s::Inflector::Inflections
+* Added a lot of extra Dutch inflections
+* Testing Dutch pluralization with WNT verbs
+
 == Version 1.0.2 (July 1, 2010)
 
 * Changed label and seatholder specification for models (class name key) and named forms (key between parentheses)

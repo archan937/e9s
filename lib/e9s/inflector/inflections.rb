@@ -74,19 +74,30 @@ module E9s
           self.new *(args.first.is_a?(Hash) ? args.first.values_at(*%w(rule replacement exceptions)) : args)
         end
         
-        def exceptions
-          (self[:exceptions] || "").downcase.split(",").collect{|x| x.strip}
+        def rule
+          self[:rule].downcase
         end
         
-        def rule
-          Regexp.new self[:rule], Regexp::IGNORECASE
+        def exceptions
+          (self[:exceptions] || "").downcase.split(",")
+        end
+        
+        def exception?(word)
+          exceptions.any?{|e| match?(word, e)}
+        end
+        
+        def match?(word, pattern)
+          w, p = word.downcase, parse_pattern(pattern)
+          p.is_a?(Regexp) ? !!w.match(p) : (w == p)
         end
         
         def inflect(word)
-          if exceptions.include?(word.downcase)
+          if exception?(word)
             word
           else
-            word.dup.gsub!(rule, self[:replacement]) || word
+            rule.split(",").collect do |x|
+              word.dup.gsub! parse_pattern(x, true), self[:replacement]
+            end.detect{|x| !x.nil?} || word
           end
         end
         
@@ -100,6 +111,20 @@ module E9s
         
         def to_hash
           Hash[*members.zip(values).flatten]
+        end
+        
+      private
+        
+        def parse_pattern(s, force_regexp = false)
+          s.strip!
+          if force_regexp and not regexp?(s)
+            s = "^(#{s.strip})$"
+          end
+          regexp?(s) ? Regexp.new(s, Regexp::IGNORECASE) : s
+        end
+        
+        def regexp?(s)
+          !!s.match(/[\^\$\(\)]/)
         end
         
       end

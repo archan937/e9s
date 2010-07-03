@@ -9,31 +9,31 @@ module E9s
           setup do
             include Setup
           end
-        
+          
           test "upcase_first" do
-            assert_equal ""   .upcase_first, ""
-            assert_equal "e9s".upcase_first, "E9s"
-            assert_equal "E9S".upcase_first, "E9S"
+            assert_equal ""   , "".upcase_first
+            assert_equal "E9s", "e9s".upcase_first
+            assert_equal "E9S", "E9S".upcase_first
           end
-      
+          
           # test "cp_case" do
           #   assert true
           # end
-      
+          
           test "upcase_first!" do
-            assert_equal ""   .upcase_first!, nil
-            assert_equal "e9s".upcase_first!, "E9s"
-            assert_equal "E9s".upcase_first!, nil
+            assert_equal nil  , "".upcase_first!
+            assert_equal "E9s", "e9s".upcase_first!
+            assert_equal nil  , "E9s".upcase_first!
           end
-      
+          
           # test "pluralize!" do
           #   assert true
           # end
-      
+          
           # test "s" do
           #   assert true
           # end
-      
+          
           # test "pl" do
           #   assert true
           # end

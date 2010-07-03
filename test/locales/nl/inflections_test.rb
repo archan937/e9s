@@ -1,4 +1,5 @@
 require File.expand_path(File.join(File.dirname(__FILE__), "..", "..", "test_helper.rb"))
+require "csv"
 
 module E9s
   module Test
@@ -24,8 +25,14 @@ module E9s
             assert_equal "diners"             , "diner".pl
             assert_equal "jubilea"            , "jubileum".pl
             assert_equal "festivals"          , "festival".pl
-            # assert_equal "vazen"              , "vaas".pl
+            assert_equal "vazen"              , "vaas".pl
             # assert_equal "vragen & antwoorden", "vraag & antwoord".pl
+          end
+          
+          test "dutch_words" do
+            CSV.open(File.join(File.dirname(__FILE__), "words.csv"), "r", ",") do |word|
+              assert_equal word[1], word[0].pl unless word[1].match(/NULL/)
+            end
           end
         end
             
