@@ -60,7 +60,12 @@ module E9s
       
             end.join " "
           end
-  
+          
+          def to_es
+            puts "E9s: Adding i18n metadata"
+            to_s
+          end
+          
         private
 
           E9S_OPTIONS = [:count, :pluralize, :capitalize, :translate_callback]
