@@ -146,7 +146,7 @@ nl:
       - rijst
 </pre>
 
-For a complete example, please open "http://github.com/archan937/e9s/blob/gem/locales/nl.yml":http://github.com/archan937/e9s/blob/gem/locales/nl.yml which contain Dutch inflections.
+For a complete example, please open "http://github.com/archan937/e9s/blob/gem/locales/nl.yml":http://github.com/archan937/e9s/blob/gem/locales/nl.yml which contains Dutch inflections.
 
 h3. String / Symbol methods
 
@@ -227,7 +227,7 @@ nl:
       criteria:     '&Voorbeeld'
 </pre>
 
-For a complete example, please open "http://github.com/archan937/e9s/blob/gem/locales/nl.yml":http://github.com/archan937/e9s/blob/gem/locales/nl.yml which contain Dutch labels and seatholders.
+For a complete example, please open "http://github.com/archan937/e9s/blob/gem/locales/nl.yml":http://github.com/archan937/e9s/blob/gem/locales/nl.yml which contains Dutch labels and seatholders.
 
 h2. Contact me
 
