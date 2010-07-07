@@ -1,2 +1,6 @@
 
-require File.join(File.dirname(__FILE__), "erb", "compiler", "buffer.rb" )
+require "e9s/core/erb/output"
+
+class ERB::Compiler::Buffer
+  include E9s::Core::ERB::Output
+end

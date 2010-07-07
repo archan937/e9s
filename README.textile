@@ -146,6 +146,8 @@ nl:
       - rijst
 </pre>
 
+For a complete example, please open "http://github.com/archan937/e9s/blob/gem/locales/nl.yml":http://github.com/archan937/e9s/blob/gem/locales/nl.yml which contain Dutch inflections.
+
 h3. String / Symbol methods
 
 E9s adds the following methods to strings and symbols:
@@ -224,6 +226,8 @@ nl:
     (search_form)
       criteria:     '&Voorbeeld'
 </pre>
+
+For a complete example, please open "http://github.com/archan937/e9s/blob/gem/locales/nl.yml":http://github.com/archan937/e9s/blob/gem/locales/nl.yml which contain Dutch labels and seatholders.
 
 h2. Contact me
 

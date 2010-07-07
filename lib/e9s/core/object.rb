@@ -1,6 +1,6 @@
 
-require "e9s/core/object/enriched_representation"
+require "e9s/core/object/output"
 
 class Object
-  include E9s::Core::Object::EnrichedRepresentation
+  include E9s::Core::Object::Output
 end

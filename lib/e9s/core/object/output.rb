@@ -2,7 +2,11 @@
 module E9s
   module Core
     module Object
-      module EnrichedRepresentation
+      module Output
+        
+        def to_output
+          to_es
+        end
         
         def to_es
           to_s
