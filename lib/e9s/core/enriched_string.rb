@@ -3,23 +3,28 @@ module E9s
   module Core
     class EnrichedString < String
       
-      def initialize(s, meta_data = {}, concats = [])
+      attr_accessor :meta_data
+      attr_accessor :enriched_strings
+      
+      def initialize(s = "", meta_data = nil)
         super s
-        @meta_data = meta_data
-        @concats   = concats
-        # puts "EnrichedString #{s} #{@meta_data.inspect} #{@concats.inspect}"
+        @meta_data        = meta_data || (s.meta_data.dup        if s.is_a?(EnrichedString)) || {}
+        @enriched_strings =              (s.enriched_strings.dup if s.is_a?(EnrichedString)) || []
       end
       
-      def push(s)
-        @concats << s.to_enriched_string
+      def enriche(s)
+        @enriched_strings << self.dup if @enriched_strings.empty?
+        @enriched_strings << s.dup
         self
       end
-        
+      
       def to_es
-        @concats.empty? ?
-          to_i18n_tag : 
-          @concats.collect(&:to_es).join(" ")
+        @enriched_strings.empty? ?
+          to_i18n_tag :
+          @enriched_strings.collect(&:to_es).join(" ")
       end
+      
+    private
       
       def to_i18n_tag
         @meta_data.empty? ? 
@@ -32,10 +37,14 @@ module E9s
 end
 
 # class Array
+#   EnrichedString = E9s::Core::EnrichedString
+#   
 #   def join_with_e9s(sep = "")
-#     s = E9s::Core::EnrichedString.new(join_without_e9s(sep), {}, collect{|x| x.instance_variable_get(:@concats)}.flatten)
-#     puts s.to_i18n_tag
-#     s
+#     # if any?{|x| x.is_a? EnrichedString}
+#     #   collect(&:to_s).join(sep.to_s_xss_protected).mark_as_xss_protected
+#     # else
+#       join_without_e9s(sep)
+#     # end
 #   end
 #   alias_method_chain :join, :e9s
 # end
