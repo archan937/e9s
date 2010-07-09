@@ -245,7 +245,7 @@ Formtastic (optional)<br>
 
 h2. ToDo's
 
-* Use the XSS approach when printing translated strings within views to add meta data
+* Override String literals (e.g. "foo") and interpolation (e.g. "foo #{"bar".t}") for preserving substrings
 * Complete the Dutch inflections
 
 h2. License

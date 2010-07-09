@@ -11,8 +11,12 @@ module E9s
         end
         
         def e9s_join(sep = "")
-          returning (any?{|x| x.is_a?(EnrichedString)} ? EnrichedString : ::String).new do |result|
-            each_with_index{|s, i| result << s; result << sep if i < size - 1}
+          if size == 1 && first.is_a?(EnrichedString)
+            first
+          else
+            returning ::String.new do |result|
+              each_with_index{|s, i| result << "#{s}#{sep unless i == size - 1}"}
+            end
           end
         end
         
