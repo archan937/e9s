@@ -6,17 +6,18 @@ module E9s
         
         def self.included(base)
           base.class_eval do
-            alias_method :join, :e9s_join
+            alias_method_chain :join, :e9s
           end
         end
         
-        def e9s_join(sep = "")
+        def join_with_e9s(sep = "")
           if size == 1 && first.is_a?(EnrichedString)
             first
           else
-            returning ::String.new do |result|
-              each_with_index{|s, i| result << "#{s}#{sep unless i == size - 1}"}
-            end
+            merged_strings = dup
+            result = join_without_e9s(sep)
+            result.merged_strings = merged_strings
+            result
           end
         end
         

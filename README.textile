@@ -245,7 +245,7 @@ Formtastic (optional)<br>
 
 h2. ToDo's
 
-* Override String literals (e.g. "foo") and interpolation (e.g. "foo #{"bar".t}") for preserving substrings
+* Override String interpolation (e.g. "foo #{"bar".t}") for preserving metadata (note: by using String interpolation all translation meta data will be lost!)
 * Complete the Dutch inflections
 
 h2. License
