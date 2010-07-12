@@ -146,6 +146,8 @@ nl:
       - rijst
 </pre>
 
+For a complete example, please open "http://github.com/archan937/e9s/blob/gem/locales/nl.yml":http://github.com/archan937/e9s/blob/gem/locales/nl.yml which contains Dutch inflections.
+
 h3. String / Symbol methods
 
 E9s adds the following methods to strings and symbols:
@@ -225,6 +227,8 @@ nl:
       criteria:     '&Voorbeeld'
 </pre>
 
+For a complete example, please open "http://github.com/archan937/e9s/blob/gem/locales/nl.yml":http://github.com/archan937/e9s/blob/gem/locales/nl.yml which contains Dutch labels and seatholders.
+
 h2. Contact me
 
 For support, remarks and requests please mail me at "paul.engel@holder.nl":mailto:paul.engel@holder.nl.
@@ -241,7 +245,7 @@ Formtastic (optional)<br>
 
 h2. ToDo's
 
-* Use the XSS approach when printing translated strings within views to add meta data
+* Override String interpolation (e.g. "foo #{"bar".t}") for preserving metadata (note: by using String interpolation all translation meta data will be lost!)
 * Complete the Dutch inflections
 
 h2. License

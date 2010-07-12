@@ -21,7 +21,7 @@ module E9s
           keys.unshift :"label.forms.(#{@options[:name]}).#{object}.#{method}"
         end
         
-        options[:label] = keys.shift.t :default => keys, :capitalize => true
+        options[:label] = keys.shift.t(:default => keys, :capitalize => true).to_output
       end
       
       unless options.include?(:seatholder)
@@ -33,7 +33,7 @@ module E9s
         end
         
         seatholder = keys.shift.t :default => keys, :capitalize => true
-        options[:seatholder] = seatholder unless seatholder.empty? 
+        options[:seatholder] = seatholder.to_output unless seatholder.empty? 
       end
       
       (options[:input_html] ||= {}).store :seatholder, options.delete(:seatholder) unless @object && @object.respond_to?(:errors) && !@object.errors[method.to_sym].blank?

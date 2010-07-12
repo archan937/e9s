@@ -30,10 +30,6 @@ module E9s
           downcase == (result = pluralize).downcase   ? nil : replace(result)
         end
   
-        # def s
-        #   E9s::Inflector.singularize self
-        # end
-  
         def pl(count = nil)
           E9s::Inflector.pluralize self, count
         end

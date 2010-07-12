@@ -5,15 +5,7 @@ module E9s
       module Internationalization
 
         def self.included(base)
-          base.cattr_accessor :taggify_translations
-          base.extend ClassMethods
           base.send :include, InstanceMethods
-        end
-
-        module ClassMethods
-          # def something
-          #   
-          # end
         end
         
         module InstanceMethods
@@ -55,37 +47,30 @@ module E9s
               unless s.gsub!(/^=\s+/, "")
                 s.cp_case! options[:capitalize] ? default.capitalize : default
               end
-
-              taggify_translations ? taggify(string, s, key, value) : s
+              
+              EnrichedString.new s, {:key => string, :actual_key => key, :actual_value => value}
       
-            end.join " "
-          end
-          
-          def to_es
-            puts "E9s: Adding i18n metadata"
-            to_s
+            end.join(" ")
           end
           
         private
 
           E9S_OPTIONS = [:count, :pluralize, :capitalize, :translate_callback]
           LOGGER_PROC = Proc.new{|translation, key, options| puts "INFO: I18n.t #{key.inspect}, #{options.inspect}"}
+          
+          @@i18n_translations = {}
 
           def i18n_t(key, opts = {})
             options = opts.inject({}) do |hash, (k, v)|
                         hash[k] = v.is_a?(String) && v.include?("<i18n") ? v.gsub(/(\<i18n[^\>]+\>)|(\<\/i18n\>)/, "") : v unless E9S_OPTIONS.include?(k)
                         hash
                       end
-    
-            translation = I18n.t(key, options).dup
+            
+            k = "#{key.inspect}, #{options.inspect}"
+            translation = (@@i18n_translations[k] ||= I18n.t(key, options).dup)
             opts[:translate_callback].try :call, translation, key, options
     
             translation
-          end
-  
-          def taggify(key, value, actual_key, actual_value)
-            attrs = {"data-key" => key, "data-actual_key" => actual_key, "data-actual_value" => actual_value}.collect{|k, v| "#{k} = #{v.inspect}"}.join " "
-            "<i18n #{attrs}>#{value}</i18n>"
           end
         end
                 
