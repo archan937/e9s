@@ -41,20 +41,6 @@ Add e9s in environment.rb as a gem dependency:
   config.gem "e9s"
 </pre>
 
-h3. Using E9s as plugin
-
-Install the E9s plugin:
-
-<pre>
-  ./script/plugin install git://github.com/archan937/e9s.git 
-</pre>
-
-Optionally, you can also install the Formtastic plugin:
-
-<pre>
-  ./script/plugin install git://github.com/justinfrench/formtastic.git
-</pre>
-
 h2. Usage
 
 h3. Populating config/locales
@@ -233,7 +219,13 @@ For support, remarks and requests please mail me at "paul.engel@holder.nl":mailt
 
 h2. Credit
 
-This Rails gem / plugin depends on:
+This Rails gem depends on:
+
+rich_pluralization<br>
+"http://github.com/archan937/rich_pluralization":http://github.com/archan937/rich_pluralization
+
+rich_i18n<br>
+"http://github.com/archan937/rich_i18n":http://github.com/archan937/rich_i18n
 
 i18n<br>
 "http://github.com/svenfuchs/i18n":http://github.com/svenfuchs/i18n
