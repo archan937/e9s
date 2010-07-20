@@ -27,8 +27,6 @@ h3. Inflections
 
 h2. Installation
 
-h3. Using E9s as gem
-
 Install the E9s gem:
 
 <pre>
