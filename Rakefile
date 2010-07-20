@@ -6,13 +6,14 @@ begin
   require "jeweler"
   Jeweler::Tasks.new do |gemspec|
     gemspec.name        = "e9s"
-    gemspec.summary     = "Enrichments (e9s) for Ruby Internationalization (i18n)"
+    gemspec.summary     = "Enrichments (e9s) for internationalization (i18n) and localized pluralization"
     gemspec.description = "E9s was created due to the need of simply implementing i18n within a Rails application. It enriches I18n, Formtastic, the String and Symbol classes to make life easier for the Rails developer."
     gemspec.email       = "paul.engel@holder.nl"
     gemspec.homepage    = "http://github.com/archan937/e9s"
     gemspec.author      = "Paul Engel"
 
-    gemspec.add_dependency "formtastic"
+    gemspec.add_dependency "rich_i18n"
+    gemspec.add_dependency "rich_pluralization"
   end
   Jeweler::GemcutterTasks.new
 rescue LoadError

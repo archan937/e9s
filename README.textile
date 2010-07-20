@@ -1,17 +1,17 @@
 
 h1. E9s
 
-Enrichments (e9s) for Ruby Internationalization (i18n)
+Enrichments (e9s) for internationalization (i18n) and localized pluralization
 
 h2. Introduction
 
-E9s was created due to the need of simply implementing I18n within a Rails application. It enriches I18n, Formtastic, the String and Symbol classes to make life easier for the Rails developer. A list of E9s' features:
+E9s was created due to the need of simply implementing I18n within a Rails application. It enriches I18n, Formtastic, the String and Symbol classes to make life easier for the Rails developer. E9s is divided into modules (as gem and plugin): Rich-i18n and Rich-pluralization. A list of E9s' features:
 
 h3. I18n
 
 * @Localized pluralization@ - Translations only in singular form are sufficient enough as E9s can pluralize in foreign languages
 * @Default values@ - Use the translation key (or a portion) as default value: @"continue".t@ returns @"continue"@ and @"text.Welcome_to_our_site".t@ returns @"Welcome to our site"@
-* @An easy interface@ - Just call the @t@ method on string and symbols to translate and @pl@ to pluralize
+* @An easy interface@ - Just call the @t@ method on string or symbols to translate and @pl@ to pluralize
 * @Combine translations@ - Joining keys with spaces combines translations: @"More houses".t@ returns @"Meer huizen"@ in Dutch
 
 h3. Formtastic
@@ -235,7 +235,7 @@ For support, remarks and requests please mail me at "paul.engel@holder.nl":mailt
 
 h2. Credit
 
-This Rails plugin depends on:
+This Rails gem / plugin depends on:
 
 i18n<br>
 "http://github.com/svenfuchs/i18n":http://github.com/svenfuchs/i18n

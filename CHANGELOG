@@ -1,5 +1,9 @@
 = E9s CHANGELOG
 
+== Version 2.0.0 (July 18, 2010)
+
+* Divided code into modules (Rich-i18n and Rich-pluralization)
+
 == Version 1.1.1 (July 10, 2010)
 
 * Completed XSS approach implementation for printing meta data including labels and seatholders (leaving out String interpolation though!)
