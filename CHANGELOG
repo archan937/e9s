@@ -1,0 +1,101 @@
+= E9s CHANGELOG
+
+== Version 2.0.0 (July 18, 2010)
+
+* Divided code into modules (Rich-i18n and Rich-pluralization)
+
+== Version 1.1.1 (July 10, 2010)
+
+* Completed XSS approach implementation for printing meta data including labels and seatholders (leaving out String interpolation though!)
+
+== Version 1.1.0 (July 9, 2010)
+
+* Implemented XSS approach implementation for printing meta data (almost complete)
+
+== Version 1.0.3 (July 4, 2010)
+
+* Improved E9s::Inflector::Inflections
+* Added a lot of extra Dutch inflections
+* Testing Dutch pluralization with WNT verbs
+
+== Version 1.0.2 (July 1, 2010)
+
+* Changed label and seatholder specification for models (class name key) and named forms (key between parentheses)
+
+== Version 1.0.1 (June 29, 2010)
+
+* Added the 'pl' method to Symbol
+
+== Version 1.0.0 (June 25, 2010)
+
+* Refactored the entire code base (cleaned up the module and file structure and separated functionality)
+* Corrected E9s behaviour within the Rails console
+
+== Version 0.2.5 (June 14, 2010)
+
+* Dupping fetched translation which fixes the alternation of translations
+
+== Version 0.2.4 (June 10, 2010)
+
+* Rescueing E9s::Plugin.taggify_restriction call within ActionView when rendering content
+
+== Version 0.2.3 (June 4, 2010)
+
+* Corrected the quick fix for interpolating meta-data containing translations
+* Quick fixed interpolating meta-data containing translations
+
+== Version 0.2.2 (June 1, 2010)
+
+* Renamed capturing_template_content to taggify_translations
+* Added E9s::Plugin.taggify_restriction to overrule translation taggifying when not authorized to translate
+* Being able to trace the I18n key and options used for translation
+
+== Version 0.2.1 (May 31, 2010)
+
+* Removed the body tag within E9s::ActionView.sanitize_html (this fixes sanitizing Ajax content)
+
+== Version 0.2.0 (May 28, 2010)
+
+* Implemented meta data rendering within views
+
+== Version 0.1.7 (May 11, 2010)
+
+* Not capitalizing the method segment in the translation keys in the formtastic input enrichment
+* Added the :capitalize option to the String.t method
+* Cleaned up string.rb
+* Ensuring capitalized labels and seatholders within Formtastic forms again
+
+== Version 0.1.6 (April 20, 2010)
+
+* Fixed bug when calling "".upcase_first and "".upcase_first!
+* Updated nl.yml
+* Added test assertions
+
+== Version 0.1.5 (April 18, 2010)
+
+* Using ActionController::Dispatcher.to_prepare to enrich Formtastic
+
+== Version 0.1.4 (April 13, 2010)
+
+* Corrected I18n backend reloading
+
+== Version 0.1.3 (April 11, 2010)
+
+* Being able to derive the correct I18n keys for labels and seatholders of nested attributes with Formtastic
+
+== Version 0.1.2 (April 8, 2010)
+
+* Only requiring e9s lib files on initialization
+* Adding e9s locales to I18n.load_path on initialization
+* Reduced content of locales/nl.yml
+
+== Version 0.1.1 (April 6, 2010)
+
+* Added more test assertions for combined translations (e.g. "Male / Female".t equals "Man / Vrouw")
+* Added a small correction in the String.cp_case method
+* Specified several dutch translations (singular)
+* Testing the E9s::Plugin on singular translations, plural translations, cased translations and combined translations
+
+== Version 0.1.0 (April 5, 2010)
+
+* Initial release

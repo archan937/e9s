@@ -1,0 +1,261 @@
+
+h1. E9s
+
+Enrichments (e9s) for internationalization (i18n) and localized pluralization
+
+h2. Introduction
+
+E9s was created due to the need of simply implementing I18n within a Rails application. It enriches I18n, Formtastic, the String and Symbol classes to make life easier for the Rails developer. E9s is divided into modules (as gem and plugin): Rich-i18n and Rich-pluralization. A list of E9s' features:
+
+h3. I18n
+
+* @Localized pluralization@ - Translations only in singular form are sufficient enough as E9s can pluralize in foreign languages
+* @Default values@ - Use the translation key (or a portion) as default value: @"continue".t@ returns @"continue"@ and @"text.Welcome_to_our_site".t@ returns @"Welcome to our site"@
+* @An easy interface@ - Just call the @t@ method on string or symbols to translate and @pl@ to pluralize
+* @Combine translations@ - Joining keys with spaces combines translations: @"More houses".t@ returns @"Meer huizen"@ in Dutch
+
+h3. Formtastic
+
+* @Labels and seatholders@ - Not only translate labels but also hint text (so called @seatholders@)
+* @Unobtrusive implementation@ - Translate labels and seatholders unobtrusively, in other words: leave your @semantic_form_for@ (view) code completely untouched
+* @Specific translations@ - Not only specify general translations for labels and seatholders, but make them model or even form specific
+
+h3. Inflections
+
+* @Preserve character casing@ - E9s preserves the casing in your translations: @"save".t@ returns @"bewaar"@, @"Save".t@ returns @"Bewaar"@ and @"SAVE".t@ returns @"BEWAAR"@ in Dutch
+* @Preserve pluralization@ - E9s singularizes or pluralizes your translations depending on the key: @"house".t@ returns @"huis"@ and @"Houses".t@ returns @"Huizen"@ in Dutch
+
+h2. Installation
+
+h3. Using E9s as gem
+
+Install the E9s gem:
+
+<pre>
+  sudo gem install e9s
+</pre>
+
+Add e9s in environment.rb as a gem dependency:
+
+<pre>
+  config.gem "e9s"
+</pre>
+
+h3. Using E9s as plugin
+
+Install the E9s plugin:
+
+<pre>
+  ./script/plugin install git://github.com/archan937/e9s.git 
+</pre>
+
+Optionally, you can also install the Formtastic plugin:
+
+<pre>
+  ./script/plugin install git://github.com/justinfrench/formtastic.git
+</pre>
+
+h2. Usage
+
+h3. Populating config/locales
+
+At default, I18n uses @I18n::Backend::Simple@ of which translations are stored within YAML files located in @config/locales@. When adding a new language, it is adviced to copy a YAML file from "http://github.com/svenfuchs/rails-i18n/tree/master/rails/locale":http://github.com/svenfuchs/rails-i18n/tree/master/rails/locale in which you can add your translations. Of course, you can also use other I18n backends like @I18n::Backend::ActiveRecord@ for translations stored in the database.
+
+h3. Words
+
+As E9s automatically singularizes or pluralizes the translation (depending on the passed key), you only have to specify translations in singular form.
+
+*Note*: specified in @config/locales/nl.yml@
+
+<pre>
+---
+nl:
+  
+  word:
+    "yes":   ja
+    "no":    nee
+    house:   huis
+    letter:  brief
+    sign:    teken
+    user:    gebruiker
+    more:    meer
+</pre>
+
+h3. Pluralization
+
+A *very powerful* feature of E9s is pluralization which resembles the inflections of @ActiveSupport::Inflector@. Unfortunately, specifying inflections within @config/initializers/inflections.rb@ also influences your Rails application and thus causes great problems.
+
+E9s provides you to specify pluralization rules for different locales. You have to use regular expressions in order to specify them.
+
+*Note*: specified in @config/locales/nl.yml@
+
+<pre>
+--- 
+nl: 
+  
+  e9s:
+    singular:
+      - rule:          en$
+        replacement:   ""
+
+    plural:
+      - rule:          ee$
+        replacement:   eeën
+      
+      - rule:          heid$
+        replacement:   heden
+      
+      - rule:          (c|m|n|t)us$
+        replacement:   \1i
+      
+      - rule:        | abc, acme, acne, (a|ë|i|o|u|y)$
+        replacement:   \1's
+        exceptions:    (ai|eau|ei|li|lieu|ooi|ou|shampoo|spray|vlo)$
+        
+      - rule:          (blad|kind)$
+        replacement:   \1eren
+        exceptions:    (aanrecht|advertentie)blad
+      
+      - rule:          (e|em|el|er|erd|aar|aard|um|eur|foon|oor|ier|en|ie|eau|show|festival|é)$
+        replacement:   \1s
+
+      - rule:        | (a|e|o|u)\1([^aeiou])$
+        replacement:   \1\2en
+        
+      - rule:        | (aï|alia)(s), 
+                       ([^aeiou][aeiou])([^aeiou])$
+        replacement:   \1\2\2en
+        exceptions:    dal, pad, slot, vat, weg, 
+                       (blad|dag|dak|engel|gat|weg)$
+        
+      - rule:          f$
+        replacement:   ven
+
+      - rule:          s$
+        replacement:   zen
+
+      - rule:          $
+        replacement:   en
+    
+    irregular:
+      gelid:           gelederen
+    
+    uncountable:
+      - geld
+      - informatie
+      - rijst
+</pre>
+
+For a complete example, please open "http://github.com/archan937/e9s/blob/gem/locales/nl.yml":http://github.com/archan937/e9s/blob/gem/locales/nl.yml which contains Dutch inflections.
+
+h3. String / Symbol methods
+
+E9s adds the following methods to strings and symbols:
+
+* @t@ - which translates the string or symbol
+* @pl@ - which pluralizes the string or symbol with inflections of the current I18n locale
+
+Further more, E9s has enriched the String class with other inflection methods such as @upcase_first@, @cp_case@, @upcase_first!@ and @pluralize!@. Please visit "http://github.com/archan937/e9s/blob/gem/lib/e9s/core/string/inflections.rb":http://github.com/archan937/e9s/blob/gem/lib/e9s/core/string/inflections.rb to see all the methods.
+
+h3. Default values and case preservation
+
+When not specified, E9s returns a default value based on the passed key: it splits the key on @"."@ and (sort of) humanizes the last part. Sort of, because it actually replaces @"_"@ with @" "@ and it copies the casing of the key with the @cp_case@ method of the @String@ class.
+
+h3. Combined keys
+
+You can combine translations by using passed string containing translation keys joined with spaces.
+
+h3. I18n examples
+
+As a result of the YAML file specified above, you will get the following translations in your Rails console:
+
+<pre>
+  >> "word.house".t
+  => "huis"
+  >> "word.Event".t
+  => "Event"
+  >> "LETTERS".t
+  => "BRIEVEN"
+  >> "application.index.Welcome_to_our_site".t
+  => "Welcome to our site"
+  >> "word.users".t
+  => "gebruikers"
+  >> "Signs".t
+  => "Tekens"
+  >> "MORE USERS".t
+  => "MEER GEBRUIKERS"
+  >> "More houses".t
+  => "Meer huizen"
+</pre>
+
+h3. Labels and seatholders
+
+You can translate @labels@ and @seatholders@ (placeholders :D) within Formtastic forms without altering its code.
+
+*Note*: specified in @config/locales/nl.yml@
+
+<pre>
+---
+nl:
+  
+  word:
+    password:       wachtwoord
+  
+  label:
+    user_name:      gebruikersnaam
+    content:        bericht
+    
+    Question:
+      content:      jouw vraag
+    
+    Answer:
+      content:      jouw antwoord
+    
+    (search_form)
+      criteria:     uw zoekcriteria
+  
+  seatholder:
+    email_address:  uw.naam@een.website.nl
+    
+    Question:
+      content:      Hoeveel uren zitten in een dag?
+    
+    Answer:
+      content:      24 uur
+    
+    (search_form)
+      criteria:     '&Voorbeeld'
+</pre>
+
+For a complete example, please open "http://github.com/archan937/e9s/blob/gem/locales/nl.yml":http://github.com/archan937/e9s/blob/gem/locales/nl.yml which contains Dutch labels and seatholders.
+
+h2. Contact me
+
+For support, remarks and requests please mail me at "paul.engel@holder.nl":mailto:paul.engel@holder.nl.
+
+h2. Credit
+
+This Rails gem / plugin depends on:
+
+i18n<br>
+"http://github.com/svenfuchs/i18n":http://github.com/svenfuchs/i18n
+
+Formtastic (optional)<br>
+"http://github.com/justinfrench/formtastic":http://github.com/justinfrench/formtastic
+
+h2. ToDo's
+
+* Override String interpolation (e.g. "foo #{"bar".t}") for preserving metadata (note: by using String interpolation all translation meta data will be lost!)
+* Complete the Dutch inflections
+
+h2. License
+
+Copyright (c) 2010 Paul Engel, released under the MIT license
+
+"http://holder.nl":http://holder.nl - "http://codehero.es":http://codehero.es - "http://gettopup.com":http://gettopup.com - "http://twitter.com/archan937":http://twitter.com/archan937 - "paul.engel@holder.nl":mailto:paul.engel@holder.nl
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
