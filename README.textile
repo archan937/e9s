@@ -39,6 +39,27 @@ Add e9s in environment.rb as a gem dependency:
   config.gem "e9s"
 </pre>
 
+h3. Testing E9s out-of-the-box
+
+Set the default locale to @:nl@ in @environment.rb@:
+
+<pre>
+  config.i18n.default_locale = :nl
+</pre>
+
+Run the Rails console:
+
+<pre>
+  ./script/console
+</pre>
+
+Start translating in Dutch:
+
+<pre>
+  >> "MORE HOUSES".t
+  => "MEER HUIZEN"
+</pre>
+
 h2. Usage
 
 h3. Populating config/locales
