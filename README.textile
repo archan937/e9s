@@ -17,7 +17,7 @@ h3. I18n
 
 h3. Formtastic
 
-* @Labels and seatholders@ - Not only translate labels but also hint text (so called @seatholders@)
+* @Labels, seatholders and default values@ - Not only translate labels, but also hint text (so called @seatholders@) and even translate default values
 * @Unobtrusive implementation@ - Translate labels and seatholders unobtrusively, in other words: leave your @semantic_form_for@ (view) code completely untouched
 * @Specific translations@ - Not only specify general translations for labels and seatholders, but make them model or even form specific
 
