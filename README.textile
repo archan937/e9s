@@ -213,7 +213,7 @@ Keep in mind that combined translations are possible and fortunately EnrichedStr
 
 h3. String.to_output
 
-E9s adds the @to_output@ method to the String class. This returns the an @i18n tag@ with HTML 5 attributes in which the translation meta data is provded:
+E9s adds the @to_output@ method to the String class. This returns the an @i18n tag@ with @HTML 5 attributes@ in which the translation meta data is provided:
 
 <pre>
   >> "More users".t.to_output
