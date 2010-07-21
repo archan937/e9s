@@ -13,6 +13,7 @@ h3. I18n
 * @Default values@ - Use the translation key (or a portion) as default value: @"continue".t@ returns @"continue"@ and @"text.Welcome_to_our_site".t@ returns @"Welcome to our site"@
 * @An easy interface@ - Just call the @t@ method on string or symbols to translate and @pl@ to pluralize
 * @Combine translations@ - Joining keys with spaces combines translations: @"More houses".t@ returns @"Meer huizen"@ in Dutch
+* @Preserve i18n meta data@ - E9s preserves the key, the actual used I18n key and the actual translation which you can enquire (this can come in handy when implementing a CMS)
 
 h3. Formtastic
 
@@ -179,6 +180,47 @@ When not specified, E9s returns a default value based on the passed key: it spli
 h3. Combined keys
 
 You can combine translations by using passed string containing translation keys joined with spaces.
+
+h3. Translation meta data with EnrichedString
+
+When translating text, you possibly want to know the @used key@, the @actual used I18n key@ and its @actual translation@. E9s preserves just that in an @EnrichedString@ which is a subclass of @String@. Calling @.meta_data@ returns a hash with the meta data:
+
+<pre>
+  >> "MORE".t.class
+  => Rich::I18n::Core::EnrichedString
+  >> "MORE".t.meta_data
+  => {:actual_key=>"word.more", :key=>"MORE", :actual_value=>"MEER"}
+</pre>
+
+Keep in mind that combined translations are possible and fortunately EnrichedString is able to cope with that. A concatenated translation has @merged_strings@ which contains every segments:
+
+<pre>
+  >> "More users".t
+  => "Meer gebruikers"
+  >> "More users".t.merged_strings
+  => ["Meer", "gebruikers"]
+  >> "More users".t.meta_data
+  => nil
+  >> "More users".t.merged_strings.first.meta_data
+  => {:actual_key=>"word.more", :key=>"More", :actual_value=>"Meer"}
+  >> "More users".t.merged_strings.last.meta_data
+  => {:actual_key=>"word.user", :key=>"users", :actual_value=>"gebruiker"}
+  >> "One".t + " " + "question".t
+  => "één vraag"
+  >> ("One".t + " " + "question".t).merged_strings
+  => ["één", " ", "vraag"]
+</pre>
+
+h3. String.to_output
+
+E9s adds the @to_output@ method to the String class. This returns the an @i18n tag@ with HTML 5 attributes in which the translation meta data is provded:
+
+<pre>
+  >> "More users".t.to_output
+  => "<i18n data-actual_key=\"word.more\" data-key=\"More\" data-actual_value=\"Meer\">Meer</i18n><i18n data-actual_key=\"word.user\" data-key=\"users\" data-actual_value=\"gebruiker\">gebruikers</i18n>"
+</pre>
+
+This can be very handy when implementing a CMS in which users change translations. Please note that "http://github.com/archan937/e9s-demo":http://github.com/archan937/e9s-demo uses this feature to highlight translations. Later on this will also be used in "Rich-CMS":http://github.com/archan937/rich_cms, a gem / plugin that makes inplace translating possible (please be patient for this to be released).
 
 h3. I18n examples
 
