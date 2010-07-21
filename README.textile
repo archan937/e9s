@@ -39,6 +39,8 @@ Add e9s in environment.rb as a gem dependency:
   config.gem "e9s"
 </pre>
 
+h3. Optional
+
 When wanting to use @seatholders@, please include @seat_holder.js@ in your template:
 
 <pre>
