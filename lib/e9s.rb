@@ -6,7 +6,7 @@ module E9s
   
   def require_modules
     MODULES.each do |mod|
-      require "rich/#{mod}"
+      require "rich_#{mod}"
     end
   rescue LoadError => e
     # Re-raise as RuntimeError because Mongrel would swallow LoadError.

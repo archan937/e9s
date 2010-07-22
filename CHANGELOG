@@ -1,5 +1,9 @@
 = E9s CHANGELOG
 
+== Version 2.0.1 (July 22, 2010)
+
+* Fixed requiring modules on initialization
+
 == Version 2.0.0 (July 18, 2010)
 
 * Divided code into modules (Rich-i18n and Rich-pluralization)
