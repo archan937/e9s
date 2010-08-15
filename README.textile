@@ -1,19 +1,26 @@
 
 h1. E9s
 
-Enrichments (e9s) for internationalization (i18n) and localized pluralization
+Enrichments (e9s) for pluggable a CMS, internationalization (i18n) and localized pluralization
 
 h2. Introduction
 
-E9s was created due to the need of simply implementing I18n within a Rails application. This simplifies internationalization of your Rails application making a Rails developers life much easier. E9s is divided into modules (as gem and plugin): "Rich-i18n":http://github.com/archan937/rich_i18n and "Rich-pluralization":http://github.com/archan937/rich_pluralization. A list of E9s' features:
+E9s was created due to the need of simply implementing I18n within a Rails application. This simplifies internationalization of your Rails application making a Rails developers life much easier. E9s is divided into modules (as gem and plugin): "Rich-CMS":http://github.com/archan937/rich_cms , "Rich-i18n":http://github.com/archan937/rich_i18n and "Rich-pluralization":http://github.com/archan937/rich_pluralization. A list of E9s' features:
+
+h3. Pluggable CMS
+
+* @Easy setup@ - Rich-CMS only has a two-liner setup
+* @Authentication@ - Easily specify the authentication logic to be used
+* @Add editable content@ - Easily specify content available within the CMS by registering them
 
 h3. I18n
 
+* @Translate on-site@ - Just specify you want to use Rich-CMS and you are set to translate in the front-end
 * @Localized pluralization@ - Translations only in singular form are sufficient enough as E9s can pluralize in foreign languages
 * @Default values@ - Use the translation key (or a portion) as default value: @"continue".t@ returns @"continue"@ and @"text.Welcome_to_our_site".t@ returns @"Welcome to our site"@
 * @An easy interface@ - Just call the @t@ method on string or symbols to translate and @pl@ to pluralize
 * @Combine translations@ - Joining keys with spaces combines translations: @"More houses".t@ returns @"Meer huizen"@ in Dutch
-* @Preserve i18n meta data@ - E9s preserves the key, the actual used I18n key and the actual translation which you can enquire (this can come in handy when implementing a CMS)
+* @Preserve i18n meta data@ - Rich-i18n preserves the translation @key@, @value@, @locale@ and @derivative key@ (the argument passed for translation). Enquiring this can come in handy when implementing an internationalization CMS (see "Rich-CMS":http://github.com/archan937/rich_cms).
 
 h3. Formtastic
 
@@ -183,13 +190,13 @@ You can combine translations by using passed string containing translation keys 
 
 h3. Translation meta data with EnrichedString
 
-When translating text, you possibly want to know the @used key@, the @actual used I18n key@ and its @actual translation@. E9s preserves just that in an @EnrichedString@ which is a subclass of @String@. Calling @.meta_data@ returns a hash with the meta data:
+When translating text, you possibly want to know the @key@, the @value@, the @locale@ and the @derivative key@ (the argument passed for translation). Rich-i18n preserves just that in an @EnrichedString@ which is a subclass of @String@. Calling @.meta_data@ returns a hash with the meta data:
 
 <pre>
   >> "MORE".t.class
   => Rich::I18n::Core::EnrichedString
   >> "MORE".t.meta_data
-  => {:actual_key=>"word.more", :key=>"MORE", :actual_value=>"MEER"}
+  => {:locale=>:nl, :value=>"meer", :derivative_key=>"MORE", :key=>"word.more"}
 </pre>
 
 Keep in mind that combined translations are possible and fortunately EnrichedString is able to cope with that. A concatenated translation has @merged_strings@ which contains every segments:
@@ -198,13 +205,13 @@ Keep in mind that combined translations are possible and fortunately EnrichedStr
   >> "More users".t
   => "Meer gebruikers"
   >> "More users".t.merged_strings
-  => ["Meer", "gebruikers"]
+  => ["Meer", " ", "gebruikers"]
   >> "More users".t.meta_data
   => nil
   >> "More users".t.merged_strings.first.meta_data
-  => {:actual_key=>"word.more", :key=>"More", :actual_value=>"Meer"}
+  => {:locale=>:nl, :value=>"meer", :derivative_key=>"More", :key=>"word.more"}
   >> "More users".t.merged_strings.last.meta_data
-  => {:actual_key=>"word.user", :key=>"users", :actual_value=>"gebruiker"}
+  => {:locale=>:nl, :value=>"gebruiker", :derivative_key=>"users", :key=>"word.user"}
   >> "One".t + " " + "question".t
   => "één vraag"
   >> ("One".t + " " + "question".t).merged_strings
@@ -216,8 +223,10 @@ h3. String.to_output
 E9s adds the @to_output@ method to the String class. This returns the an @i18n tag@ with @HTML 5 attributes@ in which the translation meta data is provided:
 
 <pre>
+  >> E9s::Engine.enable_enriched_output = true
+  => true
   >> "More users".t.to_output
-  => "<i18n data-actual_key=\"word.more\" data-key=\"More\" data-actual_value=\"Meer\">Meer</i18n><i18n data-actual_key=\"word.user\" data-key=\"users\" data-actual_value=\"gebruiker\">gebruikers</i18n>"
+  => "<i18n data-value=\"meer\" data-locale=\"nl\" data-key=\"word.more\" data-derivative_key=\"More\">Meer</i18n> <i18n data-value=\"gebruiker\" data-locale=\"nl\" data-key=\"word.user\" data-derivative_key=\"users\">gebruikers</i18n>"
 </pre>
 
 This can be very handy when implementing a CMS in which users change translations. Please note that "http://github.com/archan937/e9s-demo":http://github.com/archan937/e9s-demo uses this feature to highlight translations. Later on this will also be used in "Rich-CMS":http://github.com/archan937/rich_cms, a gem / plugin that makes inplace translating possible (please be patient for this to be released).
@@ -290,13 +299,16 @@ For support, remarks and requests please mail me at "paul.engel@holder.nl":mailt
 
 h2. Credit
 
-This Rails gem depends on:
+This Rails gem / plugin depends on:
 
-rich_pluralization<br>
-"http://github.com/archan937/rich_pluralization":http://github.com/archan937/rich_pluralization
+Rich-CMS<br>
+"http://github.com/archan937/rich_cms":http://github.com/archan937/rich_cms
 
-rich_i18n<br>
+Rich-i18n<br>
 "http://github.com/archan937/rich_i18n":http://github.com/archan937/rich_i18n
+
+Rich-pluralization<br>
+"http://github.com/archan937/rich_pluralization":http://github.com/archan937/rich_pluralization
 
 i18n<br>
 "http://github.com/svenfuchs/i18n":http://github.com/svenfuchs/i18n
@@ -306,6 +318,16 @@ Formtastic (optional)<br>
 
 SeatHolder (optional)<br>
 "http://github.com/archan937/seat_holder":http://github.com/archan937/seat_holder
+
+h2. E9s
+
+E9s - "http://github.com/archan937/e9s":http://github.com/archan937/e9s
+
+h3. E9s modules
+
+* Rich-CMS - "http://github.com/archan937/rich_cms":http://github.com/archan937/rich_cms
+* Rich-i18n - "http://github.com/archan937/rich_i18n":http://github.com/archan937/rich_i18n
+* Rich-pluralization - "http://github.com/archan937/rich_pluralization":http://github.com/archan937/rich_pluralization
 
 h2. License
 

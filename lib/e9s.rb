@@ -1,8 +1,10 @@
 
+require "e9s/actionpack"
+
 module E9s
   extend self
   
-  MODULES = %w(i18n pluralization)
+  MODULES = %w(cms i18n pluralization)
   
   def require_modules
     MODULES.each do |mod|
