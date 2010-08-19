@@ -6,8 +6,8 @@ begin
   require "jeweler"
   Jeweler::Tasks.new do |gemspec|
     gemspec.name        = "e9s"
-    gemspec.summary     = "Enrichments (e9s) for internationalization (i18n) and localized pluralization"
-    gemspec.description = "E9s was created due to the need of simply implementing I18n within a Rails application. This simplifies internationalization of your Rails application making a Rails developers life much easier. E9s is divided into modules (as gem and plugin): Rich-i18n (http://github.com/archan937/rich_i18n) and Rich-pluralization (http://github.com/archan937/rich_pluralization)."
+    gemspec.summary     = "Enrichments (e9s) for a pluggable CMS, internationalization (i18n) and localized pluralization"
+    gemspec.description = "E9s was created due to the need of simply implementing I18n within a Rails application. This simplifies internationalization of your Rails application making a Rails developers life much easier. E9s is divided into modules (as gem and plugin): Rich-CMS (http://github.com/archan937/rich_cms) , Rich-i18n (http://github.com/archan937/rich_i18n) and Rich-pluralization (http://github.com/archan937/rich_pluralization)."
     gemspec.email       = "paul.engel@holder.nl"
     gemspec.homepage    = "http://github.com/archan937/e9s"
     gemspec.author      = "Paul Engel"
