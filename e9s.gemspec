@@ -30,6 +30,7 @@ Gem::Specification.new do |s|
      "lib/e9s/actionpack/action_view/base.rb",
      "lib/e9s/engine.rb",
      "rails/init.rb",
+     "rails_generators/enrichments/enrichments_generator.rb",
      "tasks/e9s_tasks.rake",
      "test/e9s_test.rb",
      "test/test_helper.rb",
