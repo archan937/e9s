@@ -47,16 +47,6 @@ Add e9s in environment.rb as a gem dependency:
   config.gem "e9s"
 </pre>
 
-h3. Optional
-
-When wanting to use @seatholders@, please include @seat_holder.js@ in your template:
-
-<pre>
-  <script src="path/to/seat_holder.js" type="text/javascript"></script>
-</pre>
-
-*Note*: please visit "http://github.com/archan937/seat_holder":http://github.com/archan937/seat_holder for more information about SeatHolder.
-
 h3. Testing E9s out-of-the-box
 
 Set the default locale to @:nl@ in @environment.rb@:
@@ -313,10 +303,10 @@ Rich-pluralization<br>
 i18n<br>
 "http://github.com/svenfuchs/i18n":http://github.com/svenfuchs/i18n
 
-Formtastic (optional)<br>
+Formtastic<br>
 "http://github.com/justinfrench/formtastic":http://github.com/justinfrench/formtastic
 
-SeatHolder (optional)<br>
+SeatHolder<br>
 "http://github.com/archan937/seat_holder":http://github.com/archan937/seat_holder
 
 h2. E9s
