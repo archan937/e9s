@@ -1,5 +1,10 @@
 = E9s CHANGELOG
 
+== Version 2.1.1 (October 1, 2010)
+
+* Added rails generator 'enrichments'
+* Updated gem dependencies
+
 == Version 2.1.0 (August 15, 2010)
 
 * Added Rich-CMS (yay!)
