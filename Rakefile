@@ -13,7 +13,7 @@ begin
     gemspec.author      = "Paul Engel"
 
     gemspec.add_dependency "rich_cms"          , ">= 2.0.4"
-    gemspec.add_dependency "rich_i18n"         , ">= 1.1.0"
+    gemspec.add_dependency "rich_i18n"         , ">= 1.2.0"
     gemspec.add_dependency "rich_pluralization", ">= 1.0.3"
   end
   Jeweler::GemcutterTasks.new
