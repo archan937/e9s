@@ -387,6 +387,10 @@ Rich-pluralization<br>
 "http://codehero.es/rails_gems_plugins/rich_pluralization":http://codehero.es/rails_gems_plugins/rich_pluralization <br>
 "http://github.com/archan937/rich_pluralization":http://github.com/archan937/rich_pluralization
 
+h2. ToDo's
+
+* Make E9s compatible with Rails 3
+
 h2. Enrichments
 
 The all-in-one gem at - "http://codehero.es/rails_gems_plugins/e9s":http://codehero.es/rails_gems_plugins/e9s - "http://github.com/archan937/e9s":http://github.com/archan937/e9s
