@@ -49,12 +49,6 @@ Add e9s in environment.rb as a gem dependency:
 
 h3. Testing E9s out-of-the-box
 
-Set the default locale to @:nl@ in @environment.rb@:
-
-<pre>
-  config.i18n.default_locale = :nl
-</pre>
-
 Run the Rails console:
 
 <pre>
@@ -64,11 +58,35 @@ Run the Rails console:
 Start translating in Dutch:
 
 <pre>
+  >> I18n.locale = :nl
+  => :nl
   >> "MORE HOUSES".t
   => "MEER HUIZEN"
 </pre>
 
-h2. Usage
+h2. Use the provided Rails generator
+
+In order to manage translations and/or CMS content. You need the following entities:
+
+* An @Authlogic@ authenticated user model
+* An @ActiveRecord@ model used for translation storage
+* An @ActiveRecord@ model used for CMS content storage
+
+Fortunately, E9s is provided with a Rails generator with which you can generate all the entities.
+
+h3. In your console
+
+Run the following command:
+
+<pre>
+  script/generate enrichments
+</pre>
+
+*Note*: The generator has the @-m@ or @--migrate@ option which runs @rake db:migrate@ after creating the files.
+
+Actually, this generator calls the generators of "Rich-CMS":http://github.com/archan937/rich_cms and "Rich-i18n":http://github.com/archan937/rich_i18n. For more information, please check the README files.
+
+h2. Start specifying translations
 
 h3. Populating config/locales
 
@@ -161,6 +179,47 @@ nl:
 
 For a complete example, please open "http://github.com/archan937/rich_pluralization/blob/master/locales/nl.yml":http://github.com/archan937/rich_pluralization/blob/master/locales/nl.yml which contains Dutch inflections.
 
+h3. Labels and seatholders
+
+You can translate @labels@ and @seatholders@ (placeholders :D) within Formtastic forms without altering its code.
+
+*Note*: specified in @config/locales/nl.yml@
+
+<pre>
+---
+nl:
+  
+  word:
+    password:       wachtwoord
+  
+  label:
+    user_name:      gebruikersnaam
+    content:        bericht
+    
+    Question:
+      content:      jouw vraag
+    
+    Answer:
+      content:      jouw antwoord
+    
+    (search_form)
+      criteria:     uw zoekcriteria
+  
+  seatholder:
+    email_address:  uw.naam@een.website.nl
+    
+    Question:
+      content:      Hoeveel uren zitten in een dag?
+    
+    Answer:
+      content:      24 uur
+    
+    (search_form)
+      criteria:     '&Voorbeeld'
+</pre>
+
+h2. Start translating / pluralizing
+
 h3. String / Symbol methods
 
 E9s adds the following methods to strings and symbols:
@@ -244,44 +303,69 @@ As a result of the YAML file specified above, you will get the following transla
   => "Meer huizen"
 </pre>
 
-h3. Labels and seatholders
+h2. Render E9s in your views
 
-You can translate @labels@ and @seatholders@ (placeholders :D) within Formtastic forms without altering its code.
+h3. Alter your layout
 
-*Note*: specified in @config/locales/nl.yml@
+Add the following line at the beginning of the @<body>@ tag:
 
 <pre>
----
-nl:
-  
-  word:
-    password:       wachtwoord
-  
-  label:
-    user_name:      gebruikersnaam
-    content:        bericht
-    
-    Question:
-      content:      jouw vraag
-    
-    Answer:
-      content:      jouw antwoord
-    
-    (search_form)
-      criteria:     uw zoekcriteria
-  
-  seatholder:
-    email_address:  uw.naam@een.website.nl
-    
-    Question:
-      content:      Hoeveel uren zitten in een dag?
-    
-    Answer:
-      content:      24 uur
-    
-    (search_form)
-      criteria:     '&Voorbeeld'
+  <body>
+    <%= e9s %>
+    ...
+  </body>
 </pre>
+
+h3. Render CMS content
+
+The E9s module Rich-CMS requires a rendered DOM element provided with meta data of the content instance. Fortunately, you can call a method provided by Rich-CMS. Just specify the identifier of the content type and the key of the CMS content instance in question:
+
+<pre>
+  >> key = "test_content"
+  => "test_content"
+  >> Rich::Cms::Engine.to_content_tag(".cms_content", key)
+  => "<div class='cms_content' data-key='test_content' data-value='Hello world!'>Hello world!</div>"
+</pre>
+
+When using a combined key for content identification, just call it as follows:
+
+<pre>
+  >> Rich::Cms::Engine.to_content_tag(".cms_content", {:key => key, :locale => I18n.locale})
+  => "<div class='cms_content' data-key='test_content' data-locale='nl' data-value='Hallo wereld!'>Hallo wereld!</div>"
+</pre>
+
+*Note*: In this case, the content was registered with @Rich::Cms::Engine.register(".cms_content", {:class_name => "Cms::StaticContent", :key => [:key, :locale]})@
+
+We have also provided you a helper method to render Rich-CMS content tags:
+
+<pre>
+  ...
+  <%= rich_cms_tag ".cms_content", "test_content" %>
+  <%= rich_cms_tag ".cms_content", {:key => "test_content", :locale => I18n.locale} %>
+  ...
+</pre>
+
+For further documentation, please check the "Rich-CMS README":http://github.com/archan937/rich_cms file.
+
+h3. Render translations
+
+The E9s module Rich-i18n has its own conventions which are simpler. A few examples:
+
+<pre>
+  ...
+  <h1>
+    <%= "application.index.Welcome_to_our_renewed_website".t %>
+  </h1>
+  <%= link_to "PRODUCTS".t, products_path %>
+  <%= "Hello world".t %>
+  ...
+</pre>
+
+For further documentation, please check the "Rich-i18n README":http://github.com/archan937/rich_i18n file.
+
+h3. E9s in your browser
+
+Open "http://localhost:3000/cms":http://localhost:3000/cms, log in and start managing translations / CMS content.
 
 h2. Contact me
 
@@ -292,32 +376,26 @@ h2. Credit
 This Rails gem / plugin depends on:
 
 Rich-CMS<br>
+"http://codehero.es/rails_gems_plugins/rich_cms":http://codehero.es/rails_gems_plugins/rich_cms <br>
 "http://github.com/archan937/rich_cms":http://github.com/archan937/rich_cms
 
 Rich-i18n<br>
+"http://codehero.es/rails_gems_plugins/rich_i18n":http://codehero.es/rails_gems_plugins/rich_i18n <br>
 "http://github.com/archan937/rich_i18n":http://github.com/archan937/rich_i18n
 
 Rich-pluralization<br>
+"http://codehero.es/rails_gems_plugins/rich_pluralization":http://codehero.es/rails_gems_plugins/rich_pluralization <br>
 "http://github.com/archan937/rich_pluralization":http://github.com/archan937/rich_pluralization
 
-i18n<br>
-"http://github.com/svenfuchs/i18n":http://github.com/svenfuchs/i18n
+h2. Enrichments
 
-Formtastic<br>
-"http://github.com/justinfrench/formtastic":http://github.com/justinfrench/formtastic
-
-SeatHolder<br>
-"http://github.com/archan937/seat_holder":http://github.com/archan937/seat_holder
-
-h2. E9s
-
-E9s - "http://github.com/archan937/e9s":http://github.com/archan937/e9s
+The all-in-one gem at - "http://codehero.es/rails_gems_plugins/e9s":http://codehero.es/rails_gems_plugins/e9s - "http://github.com/archan937/e9s":http://github.com/archan937/e9s
 
 h3. E9s modules
 
-* Rich-CMS - "http://github.com/archan937/rich_cms":http://github.com/archan937/rich_cms
-* Rich-i18n - "http://github.com/archan937/rich_i18n":http://github.com/archan937/rich_i18n
-* Rich-pluralization - "http://github.com/archan937/rich_pluralization":http://github.com/archan937/rich_pluralization
+* Rich-CMS <br> "http://codehero.es/rails_gems_plugins/rich_cms":http://codehero.es/rails_gems_plugins/rich_cms <br> "http://github.com/archan937/rich_cms":http://github.com/archan937/rich_cms
+* Rich-i18n <br> "http://codehero.es/rails_gems_plugins/rich_i18n":http://codehero.es/rails_gems_plugins/rich_i18n <br> "http://github.com/archan937/rich_i18n":http://github.com/archan937/rich_i18n
+* Rich-pluralization <br> "http://codehero.es/rails_gems_plugins/rich_pluralization":http://codehero.es/rails_gems_plugins/rich_pluralization <br> "http://github.com/archan937/rich_pluralization":http://github.com/archan937/rich_pluralization
 
 h2. License
 
