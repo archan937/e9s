@@ -9,11 +9,6 @@ module ActionView
         end
       end.compact.join("\n")
     end
-    
-    def link(name, options = nil)
-      options = {:class => options || name.underscore} unless options.is_a?(Hash)
-      link_to name, "#", options
-    end
 
   end
 end
