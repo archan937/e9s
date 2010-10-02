@@ -1,5 +1,10 @@
 = E9s CHANGELOG
 
+== Version 2.1.2 (October 2, 2010)
+
+* Using Rich-CMS v2.0.5 and Rich-i18n v1.2.1
+* Not defining the helper method 'link' anymore
+
 == Version 2.1.1 (October 1, 2010)
 
 * Added rails generator 'enrichments'
