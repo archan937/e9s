@@ -239,7 +239,7 @@ You can combine translations by using passed string containing translation keys 
 
 h3. Translation meta data with EnrichedString
 
-When translating text, you possibly want to know the @key@, the @value@, the @locale@ and the @derivative key@ (the argument passed for translation). Rich-i18n preserves just that in an @EnrichedString@ which is a subclass of @String@. Calling @.meta_data@ returns a hash with the meta data:
+When translating text, you possibly want to know the @key@, the @value@, the @locale@ and the @derivative key@ (the argument passed for translation). Rich-i18n preserves just that in an @EnrichedString@ which is a wrapper containing meta data and the translation. Calling @.meta_data@ returns a hash with the meta data:
 
 <pre>
   >> "MORE".t.class
