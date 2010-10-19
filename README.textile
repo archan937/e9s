@@ -345,6 +345,14 @@ We have also provided you a helper method to render Rich-CMS content tags:
   ...
 </pre>
 
+You can also render CMS content as HTML. When editing CMS content in Rich-CMS, a WYSIWYG editor will be displayed. Just add @:as => :html@.
+
+<pre>
+  ...
+  <%= rich_cms_tag ".cms_content", "application.index.welcome", :as => :html %>
+  ...
+</pre>
+
 For further documentation, please check the "Rich-CMS README":http://github.com/archan937/rich_cms file.
 
 h3. Render translations
@@ -361,7 +369,7 @@ The E9s module Rich-i18n has its own conventions which are simpler. A few exampl
   ...
 </pre>
 
-You can also render translations as HTML. When editing translations in Rich-CMS, you will be provided with a WYSIWYG editor. Just add @:as => :html@.
+You can also render translations as HTML. When editing translations in Rich-CMS, a WYSIWYG editor will be displayed. Just add @:as => :html@.
 
 <pre>
   ...
