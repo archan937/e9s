@@ -361,7 +361,7 @@ The E9s module Rich-i18n has its own conventions which are simpler. A few exampl
   ...
 </pre>
 
-You can also render translations as HTML. When editing translations in Rich-CMS, you will be provided with a WYSIWYG editor. Simply specify @:as => :html@.
+You can also render translations as HTML. When editing translations in Rich-CMS, you will be provided with a WYSIWYG editor. Just add @:as => :html@.
 
 <pre>
   ...
