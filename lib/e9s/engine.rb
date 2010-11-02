@@ -2,7 +2,7 @@
 module E9s
   module Engine
     extend self
-    
+
     def method_missing(method, *args)
       MODULES.detect do |mod|
         m = "rich/#{mod}/engine".camelize.constantize
@@ -14,6 +14,6 @@ module E9s
 
       end
     end
-    
+
   end
 end
