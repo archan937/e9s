@@ -1,3 +1,6 @@
 require "rubygems"
+require "test/unit"
 require "active_support"
-require "active_support/test_case"
+
+require File.join(File.dirname(__FILE__), "..", "lib", "e9s")
+include E9s
