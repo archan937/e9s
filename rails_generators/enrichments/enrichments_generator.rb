@@ -11,12 +11,12 @@ class EnrichmentsGenerator < Rails::Generator::Base
       # do something
     end
   end
-  
+
   def after_generate
     system "script/generate rich_authlogic_user   #{options[:user]       }" unless options[:user]        && options[:user]       .empty?
     system "script/generate rich_cms_content      #{options[:content]    }" unless options[:content]     && options[:content]    .empty?
     system "script/generate rich_i18n_translation #{options[:translation]}" unless options[:translation] && options[:translation].empty?
-    
+
     system "rake db:migrate" if options[:migrate]
   end
 
@@ -27,7 +27,7 @@ class EnrichmentsGenerator < Rails::Generator::Base
   def model_class_name
     @name.classify
   end
-  
+
   def table_name
     model_file_name.gsub("/", "_").pluralize
   end
@@ -50,7 +50,7 @@ protected
     opt.on("-t", "--translation", "The name of the I18n translation model which is Translation at default.") { |v| options[:translation] = v == true ? "" : v }
     opt.on("-m", "--migrate"    , "Run 'rake db:migrate' after generating model and migration."            ) {     options[:migrate]     =      true          }
   end
-  
+
   def banner
     <<-EOS
 Creates entities used by Enrichments (e9s).
