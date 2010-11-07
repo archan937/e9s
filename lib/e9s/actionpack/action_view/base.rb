@@ -7,7 +7,7 @@ module ActionView
         if respond_to?(method = "rich_#{mod}")
           send(method)
         end
-      end.compact.join("\n")
+      end.compact.join("\n").html_safe
     end
 
   end
