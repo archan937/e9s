@@ -1,4 +1,5 @@
 
+require "e9s/engine"
 require "e9s/actionpack"
 
 module E9s
