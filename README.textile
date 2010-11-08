@@ -46,7 +46,7 @@ Add E9s in @Gemfile@ as a gem dependency:
 Run the following in your console to install with Bundler:
 
 <pre>
-  bundle install
+  sudo bundle install
 </pre>
 
 h3. Using E9s as gem in Rails 2
