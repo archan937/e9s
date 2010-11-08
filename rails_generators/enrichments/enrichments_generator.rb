@@ -20,26 +20,6 @@ class EnrichmentsGenerator < Rails::Generator::Base
     system "rake db:migrate" if options[:migrate]
   end
 
-  def model_file_name
-    @name.underscore
-  end
-
-  def model_class_name
-    @name.classify
-  end
-
-  def table_name
-    model_file_name.gsub("/", "_").pluralize
-  end
-
-  def migration_file_name
-    "create_#{table_name}"
-  end
-
-  def migration_class_name
-    migration_file_name.camelize
-  end
-
 protected
 
   def add_options!(opt)
