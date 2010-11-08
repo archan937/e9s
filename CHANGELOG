@@ -1,5 +1,12 @@
 = E9s CHANGELOG
 
+== Version 2.2.0 (November 8, 2010)
+
+* Made E9s Rails 2 and 3 compatible (woot!)
+* Using Rich-CMS v2.1.1 and higher
+* Using Rich-i18n v1.3.1 and higher
+* Using Rich-pluralization v1.0.6 and higher
+
 == Version 2.1.4 (October 20, 2010)
 
 * Using Rich-CMS v2.0.7 and higher
