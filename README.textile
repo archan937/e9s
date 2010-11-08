@@ -35,33 +35,44 @@ h3. Inflections
 
 h2. Installation
 
-Install the E9s gem:
+h3. Using E9s as gem in Rails 3
+
+Add E9s in @Gemfile@ as a gem dependency:
 
 <pre>
-  sudo gem install e9s
+  gem "e9s"
 </pre>
 
-Add e9s in environment.rb as a gem dependency:
+Run the following in your console to install with Bundler:
+
+<pre>
+  bundle install
+</pre>
+
+h3. Using E9s as gem in Rails 2
+
+Add E9s in @environment.rb@ as a gem dependency:
 
 <pre>
   config.gem "e9s"
 </pre>
 
-h3. Testing E9s out-of-the-box
-
-Run the Rails console:
+Run the following in your console:
 
 <pre>
-  ./script/console
+  sudo rake gems:install
 </pre>
 
-Start translating in Dutch:
+h3. Using E9s as plugin in Rails 3
 
 <pre>
-  >> I18n.locale = :nl
-  => :nl
-  >> "MORE HOUSES".t
-  => "MEER HUIZEN"
+  rails plugin install git://github.com/archan937/e9s.git
+</pre>
+
+h3. Using E9s as plugin in Rails 2
+
+<pre>
+  script/plugin install git://github.com/archan937/e9s.git
 </pre>
 
 h2. Use the provided Rails generator
@@ -74,17 +85,25 @@ In order to manage translations and/or CMS content. You need the following entit
 
 Fortunately, E9s is provided with a Rails generator with which you can generate all the entities.
 
-h3. In your console
+h4. In Rails 3
 
-Run the following command:
+Run the following in your console:
 
 <pre>
-  script/generate enrichments
+  rails g enrichments -m
 </pre>
 
 *Note*: The generator has the @-m@ or @--migrate@ option which runs @rake db:migrate@ after creating the files.
 
 Actually, this generator calls the generators of "Rich-CMS":http://github.com/archan937/rich_cms and "Rich-i18n":http://github.com/archan937/rich_i18n. For more information, please check the README files.
+
+h4. In Rails 2
+
+Run the following in your console:
+
+<pre>
+  script/generate enrichments
+</pre>
 
 h2. Start specifying translations
 
@@ -405,7 +424,7 @@ Rich-pluralization<br>
 
 h2. ToDo's
 
-* Make E9s compatible with Rails 3
+None
 
 h2. Enrichments
 
