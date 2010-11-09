@@ -75,6 +75,25 @@ h3. Using E9s as plugin in Rails 2
   script/plugin install git://github.com/archan937/e9s.git
 </pre>
 
+h3. Testing E9s out-of-the-box
+
+Run the Rails console:
+
+<pre>
+  rails c
+</pre>
+
+Start translating in Dutch:
+
+<pre>
+  >> I18n.locale = :nl
+  => :nl
+  >> "Male / Female".t.to_s
+  => "Man / Vrouw"
+  >> "MORE HOUSES".t.to_s
+  => "MEER HUIZEN"
+</pre>
+
 h2. Use the provided Rails generator
 
 In order to manage translations and/or CMS content. You need the following entities:
@@ -102,7 +121,7 @@ h4. In Rails 2
 Run the following in your console:
 
 <pre>
-  script/generate enrichments
+  script/generate enrichments -m
 </pre>
 
 h2. Start specifying translations
@@ -264,25 +283,25 @@ When translating text, you possibly want to know the @key@, the @value@, the @lo
   >> "MORE".t.class
   => Rich::I18n::Core::EnrichedString
   >> "MORE".t.meta_data
-  => {:locale=>:nl, :value=>"meer", :derivative_key=>"MORE", :key=>"word.more"}
+  => {"value"=>"meer", "locale"=>:nl, "derivative_key"=>"MORE", "key"=>"word.more"}
 </pre>
 
 Keep in mind that combined translations are possible and fortunately EnrichedString is able to cope with that. A concatenated translation has @merged_strings@ which contains every segments:
 
 <pre>
-  >> "More users".t
-  => "Meer gebruikers"
-  >> "More users".t.merged_strings
-  => ["Meer", " ", "gebruikers"]
-  >> "More users".t.meta_data
-  => nil
-  >> "More users".t.merged_strings.first.meta_data
-  => {:locale=>:nl, :value=>"meer", :derivative_key=>"More", :key=>"word.more"}
-  >> "More users".t.merged_strings.last.meta_data
-  => {:locale=>:nl, :value=>"gebruiker", :derivative_key=>"users", :key=>"word.user"}
-  >> "One".t + " " + "question".t
+  >> "More streets".t.to_s
+  => "Meer straten"
+  >> "More answers".t.merged_strings.collect(&:to_s)
+  => ["Meer", " ", "antwoorden"]
+  >> "More answers".t.meta_data
+  => {}
+  >> "More answers".t.merged_strings.first.meta_data
+  => {"value"=>"meer", "locale"=>:nl, "derivative_key"=>"More", "key"=>"word.more"}
+  >> "More answers".t.merged_strings.last.meta_data
+  => {"value"=>"antwoord", "locale"=>:nl, "derivative_key"=>"answers", "key"=>"word.answer"}
+  >> ("one".t + " " + "question".t).to_s
   => "één vraag"
-  >> ("One".t + " " + "question".t).merged_strings
+  >> ("one".t + " " + "question".t).merged_strings.collect(&:to_s)
   => ["één", " ", "vraag"]
 </pre>
 
@@ -293,8 +312,8 @@ E9s adds the @to_output@ method to the String class. This returns the an @i18n t
 <pre>
   >> E9s::Engine.enable_enriched_output = true
   => true
-  >> "More users".t.to_output
-  => "<i18n data-value=\"meer\" data-locale=\"nl\" data-key=\"word.more\" data-derivative_key=\"More\">Meer</i18n> <i18n data-value=\"gebruiker\" data-locale=\"nl\" data-key=\"word.user\" data-derivative_key=\"users\">gebruikers</i18n>"
+  >> "More answers".t.to_s
+  => "<i18n data-value='meer' data-locale='nl' data-key='word.more' data-derivative_key='More' data-editable_input_type='' data-i18n_translation='Meer'></i18n> <i18n data-value='antwoord' data-locale='nl' data-key='word.answer' data-derivative_key='answers' data-editable_input_type='' data-i18n_translation='antwoorden'></i18n>"
 </pre>
 
 This can be very handy when implementing a CMS in which users change translations. Please note that "http://github.com/archan937/e9s-demo":http://github.com/archan937/e9s-demo uses this feature to highlight translations. Later on this will also be used in "Rich-CMS":http://github.com/archan937/rich_cms, a gem / plugin that makes inplace translating possible (please be patient for this to be released).
@@ -304,21 +323,21 @@ h3. I18n examples
 As a result of the YAML file specified above, you will get the following translations in your Rails console:
 
 <pre>
-  >> "word.house".t
+  >> "word.house".t.to_s
   => "huis"
-  >> "word.Event".t
+  >> "word.Event".t.to_s
   => "Event"
-  >> "LETTERS".t
+  >> "LETTERS".t.to_s
   => "BRIEVEN"
-  >> "application.index.Welcome_to_our_site".t
+  >> "application.index.Welcome_to_our_site".t.to_s
   => "Welcome to our site"
-  >> "word.users".t
+  >> "word.users".t.to_s
   => "gebruikers"
-  >> "Signs".t
+  >> "Signs".t.to_s
   => "Tekens"
-  >> "MORE USERS".t
+  >> "MORE USERS".t.to_s
   => "MEER GEBRUIKERS"
-  >> "More houses".t
+  >> "More houses".t.to_s
   => "Meer huizen"
 </pre>
 
