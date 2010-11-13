@@ -1,5 +1,9 @@
 = E9s CHANGELOG
 
+== Version 2.2.3 (November 13, 2010)
+
+* Using Rich-i18n v1.3.4 and higher
+
 == Version 2.2.2 (November 10, 2010)
 
 * Fixed the bugs in the previously released versions (yay!)
