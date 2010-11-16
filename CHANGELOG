@@ -1,5 +1,9 @@
 = E9s CHANGELOG
 
+== Version 2.2.4 (November 16, 2010)
+
+* Using Rich-CMS v2.1.4 and higher
+
 == Version 2.2.3 (November 13, 2010)
 
 * Using Rich-i18n v1.3.4 and higher
