@@ -1,7 +1,7 @@
 
 h1. E9s
 
-Enrichments (e9s) for pluggable a CMS, internationalization (i18n) and localized pluralization
+Enrichments (e9s) for a pluggable CMS frontend, internationalization (i18n) and localized pluralization
 
 h2. Introduction
 
