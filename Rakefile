@@ -12,7 +12,7 @@ begin
     gemspec.homepage    = "http://codehero.es/rails_gems_plugins/e9s"
     gemspec.author      = "Paul Engel"
 
-    gemspec.add_dependency "rich_cms"          , ">= 2.1.6"
+    gemspec.add_dependency "rich_cms"          , ">= 2.1.7"
     gemspec.add_dependency "rich_i18n"         , ">= 1.3.4"
     gemspec.add_dependency "rich_pluralization", ">= 1.0.6"
   end
