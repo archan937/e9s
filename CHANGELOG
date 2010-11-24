@@ -1,5 +1,10 @@
 = E9s CHANGELOG
 
+== Version 2.2.6 (November 24, 2010)
+
+* Using Rich-CMS v2.1.6 and higher
+* Going back to the Haml gem instead of Sass
+
 == Version 2.2.5 (November 16, 2010)
 
 * Using Rich-CMS v2.1.5 and higher
