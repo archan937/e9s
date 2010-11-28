@@ -79,8 +79,16 @@ h3. Testing E9s out-of-the-box
 
 Run the Rails console:
 
+h4. In Rails 3
+
 <pre>
   rails c
+</pre>
+
+h4. In Rails 2
+
+<pre>
+  ./script/console
 </pre>
 
 Start translating in Dutch:
