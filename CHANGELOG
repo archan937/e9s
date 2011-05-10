@@ -1,5 +1,9 @@
 = E9s CHANGELOG
 
+== Version 3.0.0 (May xx, 2010)
+
+* Removed plugin related code
+
 == Version 2.2.7 (November 24, 2010)
 
 * Using Rich-CMS v2.1.7 and higher

@@ -1,6 +1,6 @@
-
 require "e9s/engine"
 require "e9s/actionpack"
+require "e9s/version"
 
 module E9s
   extend self
