@@ -2,6 +2,9 @@
 
 == Version 3.0.0 (May xx, 2010)
 
+* Using Rich-CMS v3.1.0
+* Using Rich-i18n v1.4.0
+* Using Rich-pluralization v1.0.7
 * Dropped Jeweler for Bundler
 * Removed plugin related code
 
