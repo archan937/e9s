@@ -1,4 +1,3 @@
-
 module E9s
   module Engine
     extend self
