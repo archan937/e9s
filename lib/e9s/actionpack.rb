@@ -1,1 +1,1 @@
-require File.join(File.dirname(__FILE__), "actionpack", "action_view", "base.rb")
+require File.expand_path("../actionpack/action_view/base", __FILE__)
