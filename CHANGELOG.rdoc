@@ -2,6 +2,7 @@
 
 == Version 3.0.0 (May xx, 2010)
 
+* Dropped Jeweler for Bundler
 * Removed plugin related code
 
 == Version 2.2.7 (November 24, 2010)
