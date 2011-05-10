@@ -5,7 +5,7 @@ Enrichments (e9s) for a pluggable CMS frontend, internationalization (i18n) and 
 
 h2. Introduction
 
-E9s was created due to the need of simply implementing I18n within a Rails application. This simplifies internationalization of your Rails application making a Rails developers life much easier. E9s is divided into modules (as gem and plugin): "Rich-CMS":http://github.com/archan937/rich_cms , "Rich-i18n":http://github.com/archan937/rich_i18n and "Rich-pluralization":http://github.com/archan937/rich_pluralization. A list of E9s' features:
+E9s was created due to the need of simply implementing I18n within a Rails application. This simplifies internationalization of your Rails application making a Rails developers life much easier. E9s is divided into modules (as gems): "Rich-Support":http://github.com/archan937/rich_support, "Rich-CMS":http://github.com/archan937/rich_cms, "Rich-i18n":http://github.com/archan937/rich_i18n and "Rich-pluralization":http://github.com/archan937/rich_pluralization. A list of E9s' features:
 
 h3. Pluggable CMS
 
@@ -22,10 +22,10 @@ h3. I18n
 * @Combine translations@ - Joining keys with spaces combines translations: @"More houses".t@ returns @"Meer huizen"@ in Dutch
 * @Preserve i18n meta data@ - Rich-i18n preserves the translation @key@, @value@, @locale@ and @derivative key@ (the argument passed for translation). Enquiring this can come in handy when implementing an internationalization CMS (see "Rich-CMS":http://github.com/archan937/rich_cms).
 
-h3. Formtastic
+h3. SimpleForm / Formtastic
 
 * @Labels, seatholders and default values@ - Not only translate labels, but also hint text (so called @seatholders@) and even translate default values
-* @Unobtrusive implementation@ - Translate labels and seatholders unobtrusively, in other words: leave your @semantic_form_for@ (view) code completely untouched
+* @Unobtrusive implementation@ - Translate labels and seatholders unobtrusively, in other words: leave your @simple_form@ / @semantic_form_for@ (view) code completely untouched
 * @Specific translations@ - Not only specify general translations for labels and seatholders, but make them model or even form specific
 
 h3. Inflections
@@ -35,7 +35,7 @@ h3. Inflections
 
 h2. Installation
 
-h3. Using E9s as gem in Rails 3
+h3. Using E9s in Rails 3
 
 Add E9s in @Gemfile@ as a gem dependency:
 
@@ -46,10 +46,10 @@ Add E9s in @Gemfile@ as a gem dependency:
 Run the following in your console to install with Bundler:
 
 <pre>
-  sudo bundle install
+  bundle install
 </pre>
 
-h3. Using E9s as gem in Rails 2
+h3. Using E9s in Rails 2
 
 Add E9s in @environment.rb@ as a gem dependency:
 
@@ -61,18 +61,6 @@ Run the following in your console:
 
 <pre>
   sudo rake gems:install
-</pre>
-
-h3. Using E9s as plugin in Rails 3
-
-<pre>
-  rails plugin install git://github.com/archan937/e9s.git
-</pre>
-
-h3. Using E9s as plugin in Rails 2
-
-<pre>
-  script/plugin install git://github.com/archan937/e9s.git
 </pre>
 
 h3. Testing E9s out-of-the-box
@@ -324,8 +312,6 @@ E9s adds the @to_output@ method to the String class. This returns the an @i18n t
   => "<i18n data-value='meer' data-locale='nl' data-key='word.more' data-derivative_key='More' data-editable_input_type='' data-i18n_translation='Meer'></i18n> <i18n data-value='antwoord' data-locale='nl' data-key='word.answer' data-derivative_key='answers' data-editable_input_type='' data-i18n_translation='antwoorden'></i18n>"
 </pre>
 
-This can be very handy when implementing a CMS in which users change translations. Please note that "http://github.com/archan937/e9s-demo":http://github.com/archan937/e9s-demo uses this feature to highlight translations. Later on this will also be used in "Rich-CMS":http://github.com/archan937/rich_cms, a gem / plugin that makes inplace translating possible (please be patient for this to be released).
-
 h3. I18n examples
 
 As a result of the YAML file specified above, you will get the following translations in your Rails console:
@@ -435,7 +421,11 @@ For support, remarks and requests please mail me at "paul.engel@holder.nl":mailt
 
 h2. Credit
 
-This Rails gem / plugin depends on:
+This Rails gem depends on:
+
+Rich-Support<br>
+"http://codehero.es":http://codehero.es <br>
+"http://github.com/archan937/rich_support":http://github.com/archan937/rich_support
 
 Rich-CMS<br>
 "http://codehero.es/rails_gems_plugins/rich_cms":http://codehero.es/rails_gems_plugins/rich_cms <br>
