@@ -1,6 +1,15 @@
 .DS_Store
 .bundle
-.rvmrc
 *.gem
 Gemfile.lock
 pkg/*
+suit/rails-*/dummy/db/test.sqlite3
+suit/rails-*/dummy/log/*.log
+suit/rails-*/dummy/tmp/*
+suit/shared/mysql
+suit/shared/public/images/rich/cms/*
+suit/shared/public/javascripts/jquery/core.js
+suit/shared/public/javascripts/jquery/ui/rich_cms/*
+suit/shared/public/javascripts/rich_cms.js
+suit/shared/public/javascripts/rich_i18n.js
+suit/shared/public/stylesheets/rich_cms.css

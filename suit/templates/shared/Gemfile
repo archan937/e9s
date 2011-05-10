@@ -1,0 +1,14 @@
+source "http://rubygems.org"
+
+gem "rails", "<%= rails_gem_version %>"
+gem "sqlite3-ruby", :require => "sqlite3"
+
+gem "e9s", :path => File.expand_path("../../../..", __FILE__)
+
+group :test do
+  gem "mysql"
+  gem "shoulda"
+  gem "mocha"
+  gem "capybara"
+  gem "launchy"
+end
